@@ -1,0 +1,6 @@
+[submodule "inuit.css"]
+	path = app/assets/inuit.css
+	url = git@github.com:csswizardry/inuit.css.git
+[submodule "app/assets/inuit.css"]
+	path = app/assets/inuit.css
+	url = git@github.com:csswizardry/inuit.css.git
