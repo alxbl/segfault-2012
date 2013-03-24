@@ -13,11 +13,17 @@ $h5-size: 15px;
 $h6-size: 14px;
 
 /* Palette */
-$ui-font-color: #3b3b3b;
-$ui-highlight-color: #719d00;
+$ui-font-color: #888;
+$ui-highlight-color: #3cc;
 $ui-contrast-color: #c30083;
-$ui-page-background: #e3e3e3;
+$ui-page-background: #fefefe;
+$ui-footer-background: #333;
+$ui-footer-color: #eee;
+$brand-color: $ui-highlight-color;
+$brand-face: "Droid Sans", sans-serif!default;
 
 /* ------------------- */
-/* @import "../inuit.css/inuit"; /* Will be imported by application.css */
+@import "inuit.css/inuit";
+@import "segfault"; /* Structure */
+@import "theme"; /* UI Theme */
 /* EOF */

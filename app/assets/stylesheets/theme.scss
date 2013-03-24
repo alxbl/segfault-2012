@@ -1,0 +1,63 @@
+html {
+    font-family: $brand-face;
+    color: $ui-font-color;
+    background: $ui-page-background;
+}
+
+.blog, li {
+        border-color: rgba(0, 0, 0, 0.075)!important;
+}
+
+.main-nav, .lang-nav {
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: $ui-footer-background;
+        
+        &:hover {
+            color: $brand-color;
+        }
+    }
+}
+
+@each $page in home, about, speaking{
+    .p-#{$page} .nav-#{$page} a{
+        cursor:text; /* [1] */
+        color:$brand-color;
+    }
+}
+
+.content, .side {
+    a, a:visited, a:active, a:link {
+        color: $brand-color;
+        font-weight: bold;
+        text-decoration: none;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.blog {
+    @extend .block-list;
+    a {
+        @include font-size(26px);
+        &:hover {
+            background: $brand-color;
+            color: #fff;
+            text-decoration: none!important;
+        }
+    }
+    
+    h2 {
+        @extend .flush--bottom;
+        @extend .push-half--left;
+    }
+}
+
+.feet {
+    background: $ui-footer-background;
+    color: $ui-footer-color;
+    
+}

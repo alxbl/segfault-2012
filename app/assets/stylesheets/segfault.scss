@@ -1,5 +1,105 @@
-/* Custom segfault style. */
+﻿/* Custom segfault style. */
 .c {
     margin: 0 auto;
-    width: 85%;
+    width: 75%;
+    padding-left: $base-spacing-unit * 2;
+}
+
+body {
+    @extend .push--top;
+}
+
+.hat {
+    > h1 {
+        text-indent: -1000000px;
+        display: none;
+        visibility: hidden;
+    }
+    
+    @extend .push--bottom;
+    @extend .cf;
+}
+
+.logo {
+    float: left;
+    display: block;
+    > img {
+        height: 150px;
+        width: 150px;
+    }
+    
+    .p-home & {
+        cursor:default;
+    }
+}
+
+.main-nav {
+    @extend .nav;
+    @extend .nav--block;
+    @extend .flush--bottom;
+
+    > li {
+        margin-left: $base-spacing-unit;
+        @include font-size(18px);
+    }
+    line-height: 150px;
+}
+
+.lang-nav {
+    @extend .nav;
+    @extend .nav--block;
+    @extend .text--right;
+    @extend .flush--ends;
+}
+
+.content {
+    @extend .grid__item;
+    @extend .two-thirds;
+    padding-left: $base-spacing-unit * 2;
+    padding-right: $base-spacing-unit * 2;
+}
+
+.pages {
+    @extend .islet;
+    @extend .text--center;
+    
+    .prev {
+        @extend .push--right;
+        
+        &:before {
+            content: "\00ab\20";
+        }
+    }
+}
+
+.side {
+    @extend .grid__item;
+    @extend .one-third;
+}
+
+.feet {
+    @extend .push--top;
+    @extend .soft--sides;
+    @extend .soft--ends;
+    p {
+     @extend .flush--ends;
+    }
+    
+    .tech {
+        @extend .nav;
+        @include font-size(12px);
+        @extend .push--top;
+        @extend .text--right;
+        
+        > li {
+
+            &:after {
+                content:"\20|\20";
+            }
+
+            &:last-child:after {
+                display:none;
+            }
+        }
+    }
 }
