@@ -10,4 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require base
+ *= require inuit.css/inuit
+ *= require segfault
  */

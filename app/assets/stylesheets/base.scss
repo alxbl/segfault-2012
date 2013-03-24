@@ -1,3 +1,23 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+﻿@charset "utf-8";
+/* inuit.css overrides */
+$use-grids:         true;
+$use-push:          true;
+$use-nav:           true;
+$use-block-list:    true;
+$use-sprite:        true;
+$h1-size: 23px;;
+$h2-size: 20px;
+$h3-size: 18px;
+$h4-size: 16px;
+$h5-size: 15px;
+$h6-size: 14px;
+
+/* Palette */
+$ui-font-color: #3b3b3b;
+$ui-highlight-color: #719d00;
+$ui-contrast-color: #c30083;
+$ui-page-background: #e3e3e3;
+
+/* ------------------- */
+/* @import "../inuit.css/inuit"; /* Will be imported by application.css */
+/* EOF */
