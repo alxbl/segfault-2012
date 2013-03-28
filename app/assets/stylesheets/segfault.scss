@@ -2,7 +2,8 @@
 .c {
     margin: 0 auto;
     width: 75%;
-    padding-left: $base-spacing-unit * 2;
+    padding-left: $base-spacing-unit;
+    padding-right: $base-spacing-unit;
 }
 
 body {
@@ -40,7 +41,7 @@ body {
 
     > li {
         margin-left: $base-spacing-unit;
-        @include font-size(18px);
+        @include font-size(16px);
     }
     line-height: 150px;
 }
@@ -81,13 +82,15 @@ body {
     @extend .push--top;
     @extend .soft--sides;
     @extend .soft--ends;
+    @include font-size(12px);
+    
     p {
      @extend .flush--ends;
     }
     
     .tech {
         @extend .nav;
-        @include font-size(12px);
+        
         @extend .push--top;
         @extend .text--right;
         

@@ -22,7 +22,7 @@ html {
 
 @each $page in home, about, speaking{
     .p-#{$page} .nav-#{$page} a{
-        cursor:text; /* [1] */
+        cursor:text;
         color:$brand-color;
     }
 }
@@ -54,10 +54,24 @@ html {
         @extend .flush--bottom;
         @extend .push-half--left;
     }
+    
+    .date {
+        @extend .caps;
+        @include font-size(12px);
+    }
 }
 
 .feet {
     background: $ui-footer-background;
     color: $ui-footer-color;
+    
+    a {
+        color: $ui-font-color;
+        text-decoration: none;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
     
 }
