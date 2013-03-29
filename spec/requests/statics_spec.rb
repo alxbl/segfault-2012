@@ -25,3 +25,8 @@ describe "Site layout" do
   
   it { should have_selector('footer') }
 end
+
+#describe "About" do
+#    subject { page }
+#    before { visit about_page }
+#end
