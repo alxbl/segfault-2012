@@ -3,7 +3,10 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 
 group :development, :test do
-  gem 'rspec-rails', '2.11.0'
+  gem 'rspec-rails'
+  gem 'minitest'
+  gem 'guard-rspec'
+  gem 'spork'
 end
 
 group :test do
