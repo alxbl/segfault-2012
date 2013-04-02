@@ -13,14 +13,14 @@ html {
         font-weight: bold;
         text-decoration: none;
         color: $ui-footer-background;
-        
+
         &:hover {
             color: $brand-color;
         }
     }
 }
 
-@each $page in home, about, speaking{
+@each $page in home, about, portfolio, resume{
     .p-#{$page} .nav-#{$page} a{
         cursor:text;
         color:$brand-color;
@@ -32,7 +32,7 @@ html {
         color: $brand-color;
         font-weight: bold;
         text-decoration: none;
-        
+
         &:hover {
             text-decoration: underline;
         }
@@ -49,12 +49,12 @@ html {
             text-decoration: none!important;
         }
     }
-    
+
     h2 {
         @extend .flush--bottom;
         @extend .push-half--left;
     }
-    
+
     .date {
         @extend .caps;
         @include font-size(12px);
@@ -64,14 +64,14 @@ html {
 .feet {
     background: $ui-footer-background;
     color: $ui-footer-color;
-    
+
     a {
         color: $ui-font-color;
         text-decoration: none;
-        
+
         &:hover {
             text-decoration: underline;
         }
     }
-    
+
 }

@@ -1,4 +1,4 @@
-﻿/* Custom segfault style. */
+/* Custom segfault style. */
 .c {
     margin: 0 auto;
     width: 75%;
@@ -16,7 +16,7 @@ body {
         display: none;
         visibility: hidden;
     }
-    
+
     @extend .push--bottom;
     @extend .cf;
 }
@@ -28,7 +28,7 @@ body {
         height: 150px;
         width: 150px;
     }
-    
+
     .p-home & {
         cursor:default;
     }
@@ -63,10 +63,10 @@ body {
 .pages {
     @extend .islet;
     @extend .text--center;
-    
+
     .prev {
         @extend .push--right;
-        
+
         &:before {
             content: "\00ab\20";
         }
@@ -83,17 +83,17 @@ body {
     @extend .soft--sides;
     @extend .soft--ends;
     @include font-size(12px);
-    
+
     p {
      @extend .flush--ends;
     }
-    
+
     .tech {
         @extend .nav;
-        
+
         @extend .push--top;
         @extend .text--right;
-        
+
         > li {
 
             &:after {

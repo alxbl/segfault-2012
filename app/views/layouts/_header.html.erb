@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html class="p-home">
+<!DOCTYPE html>
+<html<%== page_class yield(:title).downcase %>>
  <head>
   <meta charset="utf-8">
   <title><%= page_title yield(:title) %></title>
@@ -11,15 +11,14 @@
   <div class="c">
    <header class="hat">
     <h1>Segmentation Fault</h1>
-   <nav>
-    <ul class="lang-nav"> <!-- TODO -->
-     <li><a class="en" href="/">en</a></li>
-     <li><a class="ja" href="/ja">ja</a></li>
-    </ul>
-    <a class="logo" href="/">
-     <img src="/segfault.svg" alt="Segfault">
-    </a>
-    
+    <nav>
+     <ul class="lang-nav">
+      <li><a class="en" href="/">en</a></li>
+      <li><a class="ja" href="/ja">ja</a></li>
+     </ul>
+     <a class="logo" href="/">
+      <img src="/segfault.svg" alt="Segfault">
+     </a>
      <ul class="main-nav">
       <li class="nav-home"><%= link_to "Home", root_path %>
       <li class="nav-about"><%= link_to "About", about_path %>
@@ -28,6 +27,6 @@
       <li class="nav-resume"><%= link_to "Resume", resume_path %>
      </ul>
     </nav>
-   </header>
-   <div class="g"><!--
-    --><div class="content">
+  </header>
+  <div class="g"><!--
+  --><div class="content">
