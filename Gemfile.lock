@@ -47,6 +47,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    daemon_controller (1.1.2)
     diff-lcs (1.2.1)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -80,6 +81,10 @@ GEM
     minitest (4.7.0)
     multi_json (1.7.2)
     nokogiri (1.5.9)
+    passenger (4.0.0.rc4)
+      daemon_controller (>= 1.1.0)
+      rack
+      rake (>= 0.8.1)
     polyglot (0.3.3)
     pry (0.9.12)
       coderay (~> 1.0.5)
@@ -166,7 +171,10 @@ DEPENDENCIES
   guard-rspec
   jquery-rails
   minitest
+  nokogiri
+  passenger (= 4.0.0rc4)
   rails (= 3.2.13)
+  rspec
   rspec-rails
   sass-rails (~> 3.2.3)
   spork
