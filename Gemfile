@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
+gem 'redcarpet'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'minitest'
@@ -13,7 +15,7 @@ group :test do
   gem 'capybara', '1.1.2'
 end
 
-# Yeah, SQLite everywhere.      
+# Yeah, SQLite everywhere.
 gem 'sqlite3'
 
 group :assets do
