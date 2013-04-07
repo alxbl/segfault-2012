@@ -24,6 +24,11 @@ end
 
 gem 'jquery-rails'
 
+group :production do
+  gem 'passenger', '4.0.0rc4'
+  gem 'rspec' # rspec-rails won't pull it.
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
