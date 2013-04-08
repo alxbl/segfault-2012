@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130405004319) do
+ActiveRecord::Schema.define(:version => 20130408011301) do
 
   create_table "articles", :force => true do |t|
     t.string   "slug",                             :null => false
@@ -25,11 +25,12 @@ ActiveRecord::Schema.define(:version => 20130405004319) do
   add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
 
   create_table "comments", :force => true do |t|
-    t.string   "name",       :default => "Anonymous", :null => false
+    t.string   "author",     :default => "Anonymous", :null => false
     t.text     "body",                                :null => false
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.integer  "article_id",                          :null => false
+    t.integer  "flagged",    :default => 0,           :null => false
   end
 
   add_index "comments", ["article_id"], :name => "index_comments_on_article_id"

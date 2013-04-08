@@ -9,6 +9,7 @@ group :development, :test do
   gem 'minitest'
   gem 'guard-rspec'
   gem 'spork'
+  gem 'guard-spork'
 end
 
 group :test do
