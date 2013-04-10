@@ -1,10 +1,14 @@
 class Article < ActiveRecord::Base
   attr_accessible :allow_comments, :body, :header, :slug
+
   validates :allow_comments, presence: true
-  # SLUG_REGEX = //
-  validates :slug, presence: true, uniqueness: {case_sensitive: false}, length: {maximum: 255}
+  SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
+  validates :slug, presence: true,
+                   uniqueness: {case_sensitive: false},
+                   length: {maximum: 255},
+                   format: {with: SLUG_REGEX}
   validates :body, presence: true
-  validates :header, presence: true
+  validates :header, presence: true, length: {maximum: 255}
 
   has_many :taggings
   has_many :tags, :through => :taggings
