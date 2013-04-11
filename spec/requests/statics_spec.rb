@@ -26,7 +26,10 @@ describe "Static content" do
     it { should have_css('a.en') }
     it { should have_css('a.ja') }
 
-    it { should have_selector('footer') }
+    describe "footer" do
+      it { should have_selector('footer') }
+      it { should have_content('CC BY-SA') }
+    end
   end
 
   describe "about page" do
