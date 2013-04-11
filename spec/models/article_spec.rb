@@ -17,9 +17,9 @@ describe Article do
   end
 
   describe "slug" do
-    describe "is required" do
-      before { @article.slug = '' }
-      it { should_not be_valid }
+    it "is required" do
+      @article.slug = ''
+      @article.should_not be_valid
     end
 
     it "should be well formatted" do
@@ -41,8 +41,11 @@ describe Article do
         @article.should be_valid
       end
     end
+
     describe "should be unique" do
-      pending
+      before { @duplicate = Article.new(slug: "test-article", body: "Duplicate Article", header: "Header") }
+      subject { @duplicate }
+      it { should_not == @duplicate.save }
     end
 
     describe "length <= 255" do
@@ -67,5 +70,4 @@ describe Article do
       it { should_not be_valid }
     end
   end
-
 end
