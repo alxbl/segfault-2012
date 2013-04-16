@@ -4,6 +4,9 @@ gem 'rails', '3.2.13'
 
 gem 'redcarpet'
 
+gem 'capistrano'
+gem 'rvm-capistrano'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'minitest'
@@ -11,7 +14,6 @@ group :development, :test do
   gem 'spork'
   gem 'guard-spork'
   gem 'sqlite3'
-  gem 'capistrano'
 end
 
 group :test do
