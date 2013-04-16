@@ -1,11 +1,13 @@
-set :application, "segfault.me"
-set :repository,  "git@github.com:alxbl/segfault.me.git"
+Bset :application, "segfault.me"
+s77;10102;0cet :repository,  "git@github.com:alxbl/segfault.me.git"
 set :scm, :git
 set :ssh_options, {:forward_agent => true}
 
 server "segfault", :app, :web, :db, :primary => true
 
 namespace :deploy do
+  after "deploy:update_code", "rvm:trust_rvmrc"
+
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -19,8 +21,6 @@ namespace :rvm do
     run "rvm rvmrc trust #{current_release}"
   end
 end
-
-after "deploy:update_code", "rvm:trust_rvmrc"
 
 # TODO: set :use_sudo, false
 # TODO: local_cache using gitolite
