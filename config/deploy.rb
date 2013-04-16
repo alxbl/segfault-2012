@@ -1,5 +1,5 @@
-Bset :application, "segfault.me"
-s77;10102;0cet :repository,  "git@github.com:alxbl/segfault.me.git"
+set :application, "segfault.me"
+set :repository,  "git@github.com:alxbl/segfault.me.git"
 set :scm, :git
 set :ssh_options, {:forward_agent => true}
 
