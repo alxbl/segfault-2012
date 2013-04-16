@@ -1,7 +1,11 @@
 set :application, "segfault.me"
+
 set :repository,  "git@github.com:alxbl/segfault.me.git"
 set :scm, :git
+set :git_enable_submodules, true
+
 set :ssh_options, {:forward_agent => true}
+set :default_shell, "zsh -l" # FIXME: Get rid of RVM in production. Seriously.
 
 server "segfault", :app, :web, :db, :primary => true
 
