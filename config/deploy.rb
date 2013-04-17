@@ -1,8 +1,10 @@
 set :application, "segfault.me"
 
-set :repository,  "git@github.com:alxbl/segfault.me.git"
+set :repository,  "git@segfault:site.git"
+set :branch, "master"
 set :scm, :git
 set :git_enable_submodules, true
+set :deploy_via, :remote_cache
 
 set :ssh_options, {:forward_agent => true}
 set :default_shell, "zsh -l" # FIXME: Get rid of RVM in production. Seriously.
@@ -27,4 +29,3 @@ namespace :rvm do
 end
 
 # TODO: set :use_sudo, false
-# TODO: local_cache using gitolite
