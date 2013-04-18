@@ -13,6 +13,7 @@ server "segfault", :app, :web, :db, :primary => true
 
 namespace :deploy do
   after "deploy:update_code", "rvm:trust_rvmrc"
+  after "deploy:update_code", "extra:symlink_db"
 
   task :start do ; end
   task :stop do ; end
@@ -28,4 +29,10 @@ namespace :rvm do
   end
 end
 
+namespace :extra do
+  desc 'Symlink databses.yml to the application.'
+  task :symlink_db, :role => :app do
+    run "ln -nfs #{shared_path}/system/database.yml #{release_path}/config/database.yml"
+  end
+end
 # TODO: set :use_sudo, false
