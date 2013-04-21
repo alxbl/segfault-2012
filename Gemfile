@@ -19,6 +19,9 @@ end
 group :test do
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
 end
 
 group :assets do
