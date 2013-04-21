@@ -1,19 +1,14 @@
 <% provide(:title, 'Home') %>
 <ul class="blog">
- <li><article>
-  <span class="date">March 3rd, 2013</span>
-  <h2><a href="/post/slug-here">Headline</a></h2>
- </article>
- <li><article>
-  <span class="date">March 3rd, 2013</span>
-  <h2><a href="/post/slug-here">Headline</a></h2>
- </article>
- <li><article>
-  <span class="date">March 3rd, 2013</span>
-  <h2><a href="/post/slug-here">こんにちは、Ruby</a></h2>
- </article>
 </ul>
 <div class="pages">
- <a class="prev" href="/newer">Newer</a>
- <a class="go" href="/older">Older</a>
+ <% if @articles.empty? %>
+  <article>
+    There are no articles to display.
+  </article>
+ <% else %>
+   <%= render @articles %>
+ <% end %>
+ <%== render_newer @articles %>
+ <%== render_older @articles %>
 </div>

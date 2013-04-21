@@ -13,4 +13,8 @@ class Article < ActiveRecord::Base
   has_many :taggings
   has_many :tags, :through => :taggings
   has_many :comments
+
+  def date
+    created_at.strftime '%B %d %Y' # TODO: Internationalize
+  end
 end

@@ -2,32 +2,43 @@ require 'spec_helper'
 
 describe "blog page" do
   subject { page }
-  before { visit root_path }
+  before(:each) { visit root_path }
 
   describe "footer" do
     it { should have_content('Newer') }
     it { should have_content('Older') }
 
     describe "no newer entries" do
-    pending
+      it { should_not have_link('Newer') }
     end
 
     describe "no older entries" do
-    pending
+      it { should_not have_link('Older') }
     end
   end
 
   describe "no articles available" do
-  pending
+    it { should have_selector('article', text: 'no articles') }
   end
 
   describe "article listing" do
-    # before do # Create a few articles
-    # end
-    #it { should have_selector('article', text: :article1.date.to_s) }
-    #it { should have_selector('article', text: :article1.header) }
+    before(:all) { 8.times { FactoryGirl.create(:article) } }
+    after(:all) { Article.delete_all }
 
-    # Extra article that goes on next page.
-  pending
+    it "should paginate 6 per page." do
+
+      Article.paginate(page: 1, per_page: 6).each do |article|
+        page.should have_selector('article h2', text: article.header)
+      end
+      page.should have_link('Older')
+    end
+
+    it "should paginate older articles" do
+      click_link "Older"
+      Article.paginate(page: 2, per_page: 6).each do |article|
+        page.should have_selector('article h2', text: article.header)
+      end
+      page.should have_link('Newer') # We should be able to go back.
+    end
   end
 end

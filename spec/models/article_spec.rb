@@ -14,6 +14,7 @@ describe Article do
     it { should respond_to(:allow_comments) }
     it { should respond_to(:tags) }
     it { should respond_to(:comments) }
+    it { should respond_to(:date) }
   end
 
   describe "slug" do
