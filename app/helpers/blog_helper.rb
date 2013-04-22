@@ -1,15 +1,9 @@
 module BlogHelper
   def render_newer(pages)
-    has_newer = pages.current_page > 1
-    classes = has_newer ? "prev" : "prev disabled"
-    tag = has_newer ? "a" : "span"
-    "<#{tag} class=\"#{classes}\">Newer</#{tag}>" # TODO: Internationalize
+    link_to_if pages.current_page > 1, "Newer", pages.current_page - 1 == 1 ? root_path : page_path(pages.current_page - 1)
   end
 
   def render_older(pages)
-    has_older = pages.total_pages > pages.current_page
-    classes = has_older ? "go" : "go disabled"
-    tag = has_older ? "a" : "span"
-    "<#{tag} class=\"#{classes}\">Older</#{tag}>" # TODO: Internationalize
+    link_to_if pages.total_pages > pages.current_page, "Older", page_path(pages.current_page + 1)
   end
 end

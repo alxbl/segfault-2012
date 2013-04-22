@@ -17,4 +17,8 @@ class Article < ActiveRecord::Base
   def date
     created_at.strftime '%B %d %Y' # TODO: Internationalize
   end
+
+  def to_param
+    slug
+  end
 end

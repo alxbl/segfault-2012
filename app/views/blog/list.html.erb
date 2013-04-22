@@ -9,6 +9,6 @@
  <% else %>
    <%= render @articles %>
  <% end %>
- <%== render_newer @articles %>
- <%== render_older @articles %>
+ <span class="prev"><%= render_newer @articles %></span>
+ <span class="go"><%= render_older @articles %></span>
 </div>
