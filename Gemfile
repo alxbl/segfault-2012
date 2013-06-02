@@ -15,11 +15,12 @@ group :development, :test do
   gem 'spork'
   gem 'guard-spork'
   gem 'sqlite3'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
 end
 
 group :test do
   gem 'capybara', '1.1.2'
-  gem 'factory_girl_rails'
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false

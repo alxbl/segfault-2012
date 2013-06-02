@@ -41,4 +41,23 @@ describe "blog page" do
       page.should have_link('Newer') # We should be able to go back.
     end
   end
+
+  describe "article view" do
+    before(:all) do
+      @article = FactoryGirl.create(:article)
+      @article.body = "# Header\n## Subheader\n\n* Bullet\n* Bullet\n* Bullet\n\n"
+      @article.save
+    end
+
+    before(:each) { visit article_path(@article) }
+    after(:all) { Article.delete_all }
+
+    it "should render as markdown when the body is displayed." do
+      page.should have_content(@article.header)
+      page.should have_content(@article.date)
+      page.should have_selector('article h1', text: 'Header')
+      page.should have_selector('article h2', text: 'Subheader')
+      page.should have_selector('li', text: 'Bullet')
+    end
+  end
 end

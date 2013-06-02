@@ -17,4 +17,9 @@ module ApplicationHelper
       " class=\"p-#{p}\""
     end
   end
+
+  def markdown(content)
+    @@md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true)
+    @@md.render(content)
+  end
 end

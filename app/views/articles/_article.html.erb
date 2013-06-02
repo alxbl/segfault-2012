@@ -1,4 +1,9 @@
-﻿<article>
- <span class="date"><%= article.date %></span>
- <h2><a href="<%= link_to article %>"><%= article.header %></a></h2>
+<article>
+ <header>
+   <h1><%= article.header %></h1>
+   <span class="date"><%= article.date %></span>
+   <!-- Tags here -->
+   <!-- Licensing here -->
+ </header>
+<%== markdown article.body %>
 </article>
