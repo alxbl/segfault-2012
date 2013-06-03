@@ -214,7 +214,7 @@ DEPENDENCIES
   minitest
   passenger (= 4.0.0rc4)
   pg
-  rails (= 3.2.13)
+  rails (>= 3.2.13)
   rb-fchange
   rb-fsevent
   rb-inotify

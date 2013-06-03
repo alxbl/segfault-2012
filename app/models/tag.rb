@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :freq, :name
+  attr_accessible :name
   validates :freq, presence: true
   validates :name, presence: true, length: {maximum: 50}
 

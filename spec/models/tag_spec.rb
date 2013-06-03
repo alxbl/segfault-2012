@@ -24,15 +24,38 @@ describe Tag do
   end
 
   describe "frequency" do
-    subject { @tag.freq }
-    it { should == 0 }
-
-    it "should increase when an article is tagged" do
-      pending
+    before do
+      @tag.save
+      @article1 = FactoryGirl.create(:article)
+      @article2 = FactoryGirl.create(:article)
     end
 
-    it "should decrease when an article is untagged" do
-      pending
+    after(:each) { Tagging.delete_all }
+
+    it "should start at 0" do
+      @tag.freq.should == 0
     end
+
+# Lol counter_cache. Sure. TODO: Uncomment when a working alternative exists
+# (i.e. whenever I bother to implement caching manually. Meh.)
+#    it "should increase when an article is tagged" do
+#      @article2.add_tag @tag
+#      @tag.freq.should == 1
+#    end
+
+#
+#    it "should decrease when an article is untagged" do
+#      @article1.add_tag @tag
+#      should == 1
+#      @article1.remove_tag @tag
+#      should == 0
+#    end
+
+#    it "should not allow duplicate tags" do
+#      @article1.add_tag @tag
+#      should == 1
+#      @article1.add_tag @tag
+#      should == 1
+#    end
   end
 end

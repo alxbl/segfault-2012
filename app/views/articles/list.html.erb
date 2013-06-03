@@ -1,17 +1,13 @@
 <% provide(:title, 'Home') %>
-
+<ul class="blog"><% if @articles.empty? %><!--
+ --><li>
+  <article>
+   There are no articles to display.
+  </article>
+ </li><% else %><!--
+ <%= render :partial => 'articles/article_list', :collection =>  @articles %>
+<% end %>--></ul>
 <div class="pages">
-  <ul class="blog">
-   <% if @articles.empty? %>
-    <li>
-     <article>
-      There are no articles to display.
-     </article>
-    </li>
-   <% else %>
-     <%= render :partial => 'articles/article_list', :collection =>  @articles %>
-   <% end %>
-  </ul>
-  <span class="prev"><%= render_newer @articles %></span>
-  <span class="go"><%= render_older @articles %></span>
+ <span class="prev"><%= render_newer @articles %></span>
+ <span class="go"><%= render_older @articles %></span>
 </div>
