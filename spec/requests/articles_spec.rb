@@ -45,7 +45,9 @@ describe "blog page" do
   describe "article view" do
     before(:all) do
       @article = FactoryGirl.create(:article)
-      @article.body = "# Header\n## Subheader\n\n* Bullet\n* Bullet\n* Bullet\n\n"
+      @article.md = "# Header\n## Subheader\n\n* Bullet\n* Bullet\n* Bullet\n\n"
+      @md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true) # For a test case.
+      @article.html = @md.render(@article.md)
       @article.save
     end
 

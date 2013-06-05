@@ -11,15 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130408011301) do
+ActiveRecord::Schema.define(:version => 20130604233606) do
 
   create_table "articles", :force => true do |t|
     t.string   "slug",                             :null => false
     t.string   "header",                           :null => false
-    t.text     "body",                             :null => false
+    t.text     "md",                               :null => false
     t.boolean  "allow_comments", :default => true, :null => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.text     "html",                             :null => false
+    t.integer  "lang",           :default => 1,    :null => false
   end
 
   add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true

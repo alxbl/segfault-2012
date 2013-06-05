@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe Comment do
   before do
-    @article = Article.new(slug: "an-article", body: "a", header:"Header")
-    @article.save
+    @article = FactoryGirl.create(:article)
     @comment = Comment.new(body: 'Test Comment')
     @comment.article = @article
   end

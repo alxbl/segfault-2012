@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  attr_accessible :allow_comments, :body, :header, :slug
+  attr_accessible :allow_comments, :md, :html, :header, :slug, :lang
 
   validates :allow_comments, presence: true
   SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
@@ -7,7 +7,9 @@ class Article < ActiveRecord::Base
                    uniqueness: {case_sensitive: false},
                    length: {maximum: 255},
                    format: {with: SLUG_REGEX}
-  validates :body, presence: true
+  validates :md, presence: true
+  validates :html, presence: true
+  validates :lang, presence: true
   validates :header, presence: true, length: {maximum: 255}
 
   has_many :taggings, :dependent => :delete_all
@@ -41,5 +43,9 @@ class Article < ActiveRecord::Base
       next unless t.tag == tag
       self.taggings.delete(t)
     end
+  end
+
+  def self.from_file(slug, lang)
+    return Article.new() # TODO!
   end
 end
