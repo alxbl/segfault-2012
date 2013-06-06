@@ -87,13 +87,13 @@ describe Article do
     end
 
     describe "loads markdown properly" do
-      it { @article_en.md.should == "# Sample" }
-      it { @article_ja.md.should == "# サンプル" }
+      it { @article_en.md.should =~ /# Sample/ }
+      it { @article_ja.md.should =~ /# サンプル/ }
     end
 
     describe "renders html properly" do
-      it { @article_en.html.should == "<h1>Sample</h1>" }
-      it { @article_ja.html.should == "<h1>サンプル</h1>" }
+      it { @article_en.html.should =~ /<h1>Sample<\/h1>/ }
+      it { @article_ja.html.should =~ /<h1>サンプル<\/h1>/ }
     end
 
     describe "loads tags properly" do

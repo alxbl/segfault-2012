@@ -5,4 +5,8 @@ FactoryGirl.define do
     sequence(:html, 'a')   { |n| "<h1>This is article #{n.upcase}" }
     sequence(:header, 'a') { |n| "Article #{n.upcase}" }
   end
+
+  factory :tag do
+    sequence(:name) { |n| "tag#{n}" }
+  end
 end

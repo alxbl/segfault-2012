@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Tag do
-  before { @tag = Tag.new(name: 'Sample') }
+  before { @tag = FactoryGirl.create(:tag) }
   subject { @tag }
 
   describe "API" do
@@ -25,7 +25,6 @@ describe Tag do
 
   describe "frequency" do
     before do
-      @tag.save
       @article1 = FactoryGirl.create(:article)
       @article2 = FactoryGirl.create(:article)
     end
@@ -57,5 +56,16 @@ describe Tag do
 #      @article1.add_tag @tag
 #      should == 1
 #    end
+  end
+  describe "creating from string" do
+    it "returns existing tags if available" do
+      @tag.id.should == Tag.from_name(@tag.name).id
+    end
+
+    it "returns a new tag if it didn't exist previously" do
+      new_tag = Tag.find Tag.from_name("NewTag").id
+      new_tag.name.should == "NewTag"
+      new_tag.should_not be_new_record
+    end
   end
 end

@@ -46,6 +46,37 @@ class Article < ActiveRecord::Base
   end
 
   def self.from_file(slug, lang)
-    return Article.new() # TODO!
+    # Lazily instantiate markdown
+    @@md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :fenced_code_blocks => true, :no_intra_emphasis => true)
+
+    # Locate the file based on its slug
+    path = Rails.root.join('public', 'articles', lang, "#{slug}.md")
+    begin
+      md = IO.read(path)
+      data = md.split /\n\n|\r\n\r\n/, 2 # Split at the first two consecutive line breaks.
+      meta = Article.parse_metadata(data[0])
+      meta["allow comments"] = true if !meta.has_key? "allow comments" # Allow comments by default.
+      content = data[1]
+      lang_id = lang == 'ja' ? 2 : 1 # For now, there are only two languages.
+      a = Article.new(slug: slug, header: meta["title"], md: content, html: @@md.render(content), lang: lang_id, allow_comments: meta["allow comments"])
+    rescue
+      a = Article.new()
+    end
+  end
+
+  def self.parse_metadata(content)
+    metadata = Hash.new()
+    begin
+      content.lines.each do |p|
+        pp = p.split ":", 2
+        next unless pp.size == 2
+        k = pp[0]
+        v = pp[1]
+        metadata[k.strip.downcase] = v.strip
+      end
+    rescue
+      # Parsing failed, return an empty or partial hash.
+    end
+    return metadata
   end
 end
