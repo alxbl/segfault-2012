@@ -5,7 +5,7 @@ SegfaultMe::Application.routes.draw do
   match 'resume' => 'static#resume'
 
   # Manual routes to avoid resources.
-  match 'page/:page' => 'articles#list', :constraints => { page: /\d+/ }, as: :page
+  match 'page/:page' => 'articles#list', :constraints => { page: /\d+/ }, as: :page, :defaults => { page: 1 }
   match 'posts/:slug' => 'articles#show', :constraints => { slug: /[a-z\-]+/i }, as: :article
-  root :to => 'articles#list', :defaults => { page: 1 }
+  root :to => 'articles#list'
 end

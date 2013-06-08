@@ -26,7 +26,6 @@ describe "blog page" do
     after(:all) { Article.delete_all }
 
     it "should paginate 6 per page." do
-
       Article.paginate(page: 1, per_page: 6).each do |article|
         page.should have_selector('article h2', text: article.header)
       end
