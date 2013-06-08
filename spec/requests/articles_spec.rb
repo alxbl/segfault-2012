@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe "blog page" do
@@ -26,7 +27,7 @@ describe "blog page" do
     after(:all) { Article.delete_all }
 
     it "should paginate 6 per page." do
-      Article.paginate(page: 1, per_page: 6).each do |article|
+      Article.order("created_at DESC").paginate(page: 1, per_page: 6).each do |article|
         page.should have_selector('article h2', text: article.header)
       end
       page.should have_link('Older')
@@ -34,7 +35,7 @@ describe "blog page" do
 
     it "should paginate older articles" do
       click_link "Older"
-      Article.paginate(page: 2, per_page: 6).each do |article|
+      Article.order("created_at DESC").paginate(page: 2, per_page: 6).each do |article|
         page.should have_selector('article h2', text: article.header)
       end
       page.should have_link('Newer') # We should be able to go back.
@@ -59,6 +60,28 @@ describe "blog page" do
       page.should have_selector('article h1', text: 'Header')
       page.should have_selector('article h2', text: 'Subheader')
       page.should have_selector('li', text: 'Bullet')
+    end
+  end
+
+  describe "language" do
+    before(:all) do
+      @en = Article.from_file('sample', 'en')
+      @ja = Article.from_file('sample', 'ja')
+    end
+    after(:all) do
+      Article.delete_all
+    end
+
+    it "should default to English list" do
+      visit root_path
+      page.should have_content "Sample Title"
+      page.should_not have_content "タイトル"
+    end
+
+    it "should default to English show" do
+      visit article_path(@en)
+      page.should have_content "Sample Title"
+      page.should_not have_content "タイトル"
     end
   end
 end

@@ -4,7 +4,6 @@ class Article < ActiveRecord::Base
   validates :allow_comments, presence: true
   SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
   validates :slug, presence: true,
-                   uniqueness: {case_sensitive: false},
                    length: {maximum: 255},
                    format: {with: SLUG_REGEX}
   validates :md, presence: true
@@ -58,10 +57,15 @@ class Article < ActiveRecord::Base
       meta["allow comments"] = true if !meta.has_key? "allow comments" # Allow comments by default.
       content = data[1]
       lang_id = lang == 'ja' ? 2 : 1 # For now, there are only two languages.
+
       a = Article.new(slug: slug, header: meta["title"], md: content, html: @@md.render(content), lang: lang_id, allow_comments: meta["allow comments"])
+      a.save
+      taglist = meta["tags"].split ',' if meta.has_key? "tags"
+      taglist.map {|t| a.add_tag Tag.from_name(t.strip) }
     rescue
-      a = Article.new()
+      a = nil
     end
+    return a
   end
 
   def self.parse_metadata(content)

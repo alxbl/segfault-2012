@@ -98,7 +98,7 @@ describe Article do
 
     describe "loads tags properly" do
       it { @article_en.taggings.size.should == 2 }
-      it { @article_en.taggings.first.name.should == "Tag" }
+      it { @article_en.taggings.first.tag.name.should == "Tag" }
     end
 
     describe "loads header properly" do

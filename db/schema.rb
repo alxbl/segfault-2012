@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604233606) do
+ActiveRecord::Schema.define(:version => 20130608192144) do
 
   create_table "articles", :force => true do |t|
     t.string   "slug",                             :null => false
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20130604233606) do
     t.integer  "lang",           :default => 1,    :null => false
   end
 
-  add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
+  add_index "articles", ["slug"], :name => "index_articles_on_slug"
 
   create_table "comments", :force => true do |t|
     t.string   "author",     :default => "Anonymous", :null => false
