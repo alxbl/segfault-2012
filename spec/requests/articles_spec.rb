@@ -47,6 +47,8 @@ describe "blog page" do
       @article = FactoryGirl.create(:article)
       @article.md = "# Header\n## Subheader\n\n* Bullet\n* Bullet\n* Bullet\n\n"
       @md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true) # For a test case.
+      @article.add_tag Tag.from_name("Tag1")
+      @article.add_tag Tag.from_name("Tag2")
       @article.html = @md.render(@article.md)
       @article.save
     end
@@ -60,6 +62,15 @@ describe "blog page" do
       page.should have_selector('article h1', text: 'Header')
       page.should have_selector('article h2', text: 'Subheader')
       page.should have_selector('li', text: 'Bullet')
+    end
+
+    it "should link to the raw markdown" do
+      should have_link("raw")
+    end
+
+    it "should link tags" do
+      should have_link("Tag1")
+      should have_link("Tag2")
     end
   end
 

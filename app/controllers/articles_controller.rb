@@ -5,7 +5,12 @@ class ArticlesController < ApplicationController
       .paginate(:page => params[:page], :per_page => 6)
   end
 
+  # TODO: All of this get logic should be DRY'ed to the model.
   def show
     @article = Article.where(slug: params[:slug], lang: cookies[:lang] == 'ja' ? 2 : 1).limit 1
+  end
+
+  def raw
+    @article =  Article.where(slug: params[:slug], lang: cookies[:lang] == 'ja' ? 2 : 1).limit 1
   end
 end
