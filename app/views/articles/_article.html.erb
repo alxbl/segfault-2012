@@ -1,15 +1,14 @@
 <article>
  <header>
-   <span class="date"><%= article.date %></span>
+   <span class="date"><%= article.date %><%= link_to "raw", raw_path(article) %></span>
    <h1><%= article.header %></h1>
-   <span class="side"><%= link_to "raw", raw_path(article) %></span>
    <!-- Licensing here -->
  </header>
 <%== article.html %>
 
 <footer>
- <span>Filed under:</span>
- <ul>
+ Filed under
+ <ul class="tags">
    <%= render article.taggings %>
  </ul>
 </footer>

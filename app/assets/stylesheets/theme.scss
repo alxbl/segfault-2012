@@ -4,7 +4,7 @@ html {
     background: $ui-page-background;
 }
 
-.blog, li {
+.blog, li, pre, code {
         border-color: rgba(0, 0, 0, 0.075)!important;
 }
 
@@ -54,11 +54,39 @@ html {
         @extend .flush--bottom;
         @extend .push-half--left;
     }
+}
 
-    .date {
+.date {
         @extend .caps;
         @include font-size(12px);
+        width: 100%;
+        display: block;
+ }
+
+/* Article reading page */
+article {
+    header {
+        @extend .push-half--bottom;
+        h1 {
+            @extend .push--top;
+        }
     }
+
+    p code, pre {
+        border-top: 1px solid;
+        border-bottom: 1px solid;
+    }
+
+    footer {
+        @extend .smallprint;
+        font-style: italic;
+        text-align: right;
+    }
+}
+.tags {
+    @extend .nav;
+    @extend .nav--keywords;
+    display: inline-block;
 }
 
 .feet {

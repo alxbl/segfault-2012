@@ -1,4 +1,7 @@
 /* Custom segfault style. */
+/* ---------- *
+   Global
+ * ---------- */
 .c {
     margin: 0 auto;
     width: 75%;
@@ -10,6 +13,9 @@ body {
     @extend .push--top;
 }
 
+/* ---------- *
+   Header
+ * ---------- */
 .hat {
     > h1 {
         text-indent: -1000000px;
@@ -53,6 +59,9 @@ body {
     @extend .flush--ends;
 }
 
+/* ---------- *
+   Body
+ * ---------- */
 .content {
     @extend .grid__item;
     @extend .two-thirds;
@@ -78,6 +87,17 @@ body {
     @extend .one-third;
 }
 
+article header {
+    border-top: 1px;
+    a {
+        @extend .push--right;
+        float: right;
+    }
+}
+
+/* ---------- *
+   Footer
+ * ---------- */
 .feet {
     @extend .push--top;
     @extend .soft--sides;
