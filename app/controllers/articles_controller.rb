@@ -11,6 +11,11 @@ class ArticlesController < ApplicationController
   end
 
   def raw
-    @article =  Article.where(slug: params[:slug], lang: cookies[:lang] == 'ja' ? 2 : 1).limit 1
+    @article =  Article.where(slug: params[:slug], lang: cookies[:lang] == 'ja' ? 2 : 1).limit(1).first || not_found
+    render :layout => false, :content_type => 'text/x-markdown; charset=UTF-8'
+  end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
   end
 end
