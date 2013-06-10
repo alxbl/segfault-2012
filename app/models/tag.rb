@@ -6,6 +6,10 @@ class Tag < ActiveRecord::Base
   has_many :taggings
   has_many :articles, :through => :taggings
 
+  def to_param
+    name
+  end
+
   def self.from_name(name)
     t = Tag.find_or_create_by_name(name)
     return t
