@@ -44,6 +44,10 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.paginate(page)
+    order("created_at DESC").paginate(:page => page, :per_page => 6) # TODO: Move to APP_CONFIG?
+  end
+
   def self.from_file(slug, lang)
     # Lazily instantiate markdown
     @@md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :fenced_code_blocks => true, :no_intra_emphasis => true)

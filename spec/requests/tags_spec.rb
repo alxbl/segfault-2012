@@ -10,6 +10,6 @@ describe "tags" do
 
   describe "should list articles tagged under them" do
     before { visit tag_path(@tags.first) }
-    it { should have_content(@article.header) }
+    it { should have_link(@article.header) }
   end
 end

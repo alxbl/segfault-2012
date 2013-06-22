@@ -4,6 +4,8 @@ class TagsController < ApplicationController
     # Tag cloud or something
   end
   def show
-    # @articles = Tag.SomeQueryHere
+    @tag = Tag.find_by_name! params[:id]
+    @articles = @tag.articles
+    @title = @tag.name
   end
 end

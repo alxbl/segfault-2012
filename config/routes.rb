@@ -1,13 +1,15 @@
 SegfaultMe::Application.routes.draw do
   SLUG_REGEX = /[a-z\-]+/i
+  PAGE_REGEX = /\d+/
+  TAG_REGEX  = /[a-z][a-z0-9]*/i
   match 'about' => 'static#about'
   match 'portfolio' => 'static#portfolio'
   match 'resume' => 'static#resume'
 
-  resources :tags, only: [:index, :show]
+  resources :tags, only: [:show], :constraints => { id: TAG_REGEX }
 
   # Manual routes to avoid resources.
-  match 'page/:page' => 'articles#list', :constraints => { page: /\d+/ }, as: :page, :defaults => { page: 1 }
+  match 'page/:page' => 'articles#list', :constraints => { page: PAGE_REGEX }, as: :page, :defaults => { page: 1 }
   match 'posts/:slug' => 'articles#show', :constraints => { slug: SLUG_REGEX }, as: :article
   match 'posts/raw/:slug' => 'articles#raw', :constraints => { slug: SLUG_REGEX }, as: :raw
   root :to => 'articles#list'

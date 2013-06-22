@@ -1,1 +1,7 @@
-Under Construction
+<% provide(:title, @tag.name) %>
+<h1>Articles filed under <%= @tag.name %></h1>
+<ul class="blog"><% if @articles.empty? %><li>
+ <article>
+  There are no articles tagged <%= @tag.name %>.
+ </article>
+</li><% else %><%= render :partial => 'articles/article_list', :collection => @articles %><% end %></ul>
