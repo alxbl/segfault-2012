@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 set :application, "segfault.me"
 
 set :repository,  "git@segfault:site.git"
