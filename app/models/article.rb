@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Article < ActiveRecord::Base
   attr_accessible :allow_comments, :md, :html, :header, :slug, :lang
 
@@ -64,7 +65,7 @@ class Article < ActiveRecord::Base
 
       a = Article.new(slug: slug, header: meta["title"], md: content, html: @@md.render(content), lang: lang_id, allow_comments: meta["allow comments"])
       a.save
-      taglist = meta["tags"].split ',' if meta.has_key? "tags"
+      taglist = meta["tags"].split /,|、/ if meta.has_key? "tags"
       taglist.map {|t| a.add_tag Tag.from_name(t.strip) }
     rescue
       a = nil

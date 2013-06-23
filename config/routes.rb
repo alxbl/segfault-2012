@@ -1,7 +1,7 @@
 SegfaultMe::Application.routes.draw do
   SLUG_REGEX = /[a-z\-]+/i
   PAGE_REGEX = /\d+/
-  TAG_REGEX  = /[a-z][a-z0-9]*/i
+  TAG_REGEX  = %r{[^-\.'"\\/+&@#$\^&*]+}
   match 'about' => 'static#about'
   match 'portfolio' => 'static#portfolio'
   match 'resume' => 'static#resume'
