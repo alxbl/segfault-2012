@@ -9,10 +9,6 @@
     padding-right: $base-spacing-unit;
 }
 
-body {
-    @extend .push--top;
-}
-
 /* ---------- *
    Header
  * ---------- */
@@ -99,10 +95,11 @@ article header {
    Footer
  * ---------- */
 .feet {
-    @extend .push--top;
+    @extend .soft--top;
     @extend .soft--sides;
-    @extend .soft--ends;
     @include font-size(12px);
+
+
 
     p {
      @extend .flush--ends;
@@ -110,7 +107,7 @@ article header {
 
     .tech {
         @extend .nav;
-
+        @extend .flush--bottom;
         @extend .push--top;
         @extend .text--right;
 
@@ -126,3 +123,9 @@ article header {
         }
     }
 }
+
+/* footerStick */
+html, body { height: 100%; }
+.c { position: relative; min-height: 100%; }
+.feet { position: relative; margin-top: -10em; }
+.g { padding-bottom: 8em; }
