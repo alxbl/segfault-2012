@@ -17,4 +17,12 @@ module ApplicationHelper
       " class=\"p-#{p}\""
     end
   end
+
+  def static_markdown(content)
+    @@md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true,
+                                     :fenced_code_blocks => true,
+                                     :no_intra_emphasis => true,
+                                     :tables => true)
+    @@md.render(content)
+  end
 end

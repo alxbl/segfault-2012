@@ -82,6 +82,19 @@ article {
         font-style: italic;
         text-align: right;
     }
+
+    table {
+        tbody, thead {
+            th {
+                @extend .hard--ends;
+            }
+            tr, td {
+                @extend .hard--ends;
+                @extend .push--left;
+                @extend .soft--left;
+            }
+         }
+    }
 }
 .tags {
     @extend .nav;
