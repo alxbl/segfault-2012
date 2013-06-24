@@ -1,7 +1,6 @@
 class StaticController < ApplicationController
   def about
-    lang = cookies[:lang] == 'ja' ? 'ja' : 'en'
-    path = Rails.root.join('public', lang, "about.md")
+    path = Rails.root.join('public', I18n.locale.to_s, "about.md")
     @md = IO.read(path)
   end
 
@@ -9,8 +8,7 @@ class StaticController < ApplicationController
   end
 
   def resume
-    lang = cookies[:lang] == 'ja' ? 'ja' : 'en'
-    path = Rails.root.join('public', lang, "resume.md")
+    path = Rails.root.join('public', I18n.locale.to_s, "resume.md")
     @md = IO.read(path)
   end
 end
