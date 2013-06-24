@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     # On the first visit, look at Accept-language and select the preferred language
-    if !cookies[:lang_autodetected]
+    if !session[:lang_autodetected]
       I18n.locale = extract_locale_from_header
       if I18n.locale != I18n.default_locale && Language.find_by_code(I18n.locale)
-        cookies[:lang_autodetected] = true
+        session[:lang_autodetected] = true
         redirect_to url_for locale: I18n.locale # Redirect to the same page, different locale.
       end
     else
