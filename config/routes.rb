@@ -13,4 +13,8 @@ SegfaultMe::Application.routes.draw do
   match 'posts/:slug' => 'articles#show', :constraints => { slug: SLUG_REGEX }, as: :article
   match 'posts/raw/:slug' => 'articles#raw', :constraints => { slug: SLUG_REGEX }, as: :raw
   root :to => 'articles#list'
+
+  match '/404', :to => 'errors#error_404'
+  match '/500', :to => 'errors#error_500'
+  match '/503', :to => 'errors#error_503'
 end
