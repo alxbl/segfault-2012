@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = extract_locale_from_header
       if I18n.locale != I18n.default_locale && Language.find_by_code(I18n.locale)
         cookies[:lang_autodetected] = true
-        redirect_to "/#{I18n.locale}#{request.fullpath}" # Redirect to the same page, different locale.
+        redirect_to url_for locale: I18n.locale # Redirect to the same page, different locale.
       end
     else
       I18n.locale = params[:locale] || I18n.default_locale
