@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Article < ActiveRecord::Base
-  attr_accessible :allow_comments, :md, :html, :header, :slug, :lang
+  attr_accessible :allow_comments, :md, :html, :header, :slug
 
   validates :allow_comments, presence: true
   SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
@@ -9,11 +9,11 @@ class Article < ActiveRecord::Base
                    format: {with: SLUG_REGEX}
   validates :md, presence: true
   validates :html, presence: true
-  validates :lang, presence: true
   validates :header, presence: true, length: {maximum: 255}
 
   has_many :taggings, :dependent => :delete_all
   has_many :tags, :through => :taggings
+  belongs_to :language
   has_many :comments
 
   def date
@@ -45,8 +45,12 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def self.paginate(page)
-    order("created_at DESC").paginate(:page => page, :per_page => 6) # TODO: Move to APP_CONFIG?
+  def self.filter(locale)
+    joins(:language).where('languages.code' => locale || 'en')
+  end
+
+  def self.paginate(page, locale='en')
+    filter(locale).order("created_at DESC").paginate(:page => page, :per_page => 6) # TODO: Move to APP_CONFIG?
   end
 
   def self.from_file(slug, lang)
@@ -61,14 +65,18 @@ class Article < ActiveRecord::Base
       meta = Article.parse_metadata(data[0])
       meta["allow comments"] = true if !meta.has_key? "allow comments" # Allow comments by default.
       content = data[1]
-      lang_id = lang == 'ja' ? 2 : 1 # For now, there are only two languages.
 
-      a = Article.new(slug: slug, header: meta["title"], md: content, html: @@md.render(content), lang: lang_id, allow_comments: meta["allow comments"])
-      a.save
+      l = Language.find_by_code(lang)
+      a = Article.new(slug: slug,
+                          header: meta["title"],
+                          md: content, html: @@md.render(content),
+                          allow_comments: meta["allow comments"])
+      a.language = l
       taglist = meta["tags"].split /,|、/ if meta.has_key? "tags"
-      taglist.map {|t| a.add_tag Tag.from_name(t.strip) }
-    rescue
-      a = nil
+      taglist.map { |t| a.add_tag Tag.from_name(t.strip) }
+      a.save
+#    rescue
+#      a = nil
     end
     return a
   end

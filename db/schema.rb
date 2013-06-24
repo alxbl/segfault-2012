@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608192144) do
+ActiveRecord::Schema.define(:version => 20130624182423) do
 
   create_table "articles", :force => true do |t|
     t.string   "slug",                             :null => false
@@ -21,9 +21,10 @@ ActiveRecord::Schema.define(:version => 20130608192144) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.text     "html",                             :null => false
-    t.integer  "lang",           :default => 1,    :null => false
+    t.integer  "language_id",    :default => 1,    :null => false
   end
 
+  add_index "articles", ["language_id"], :name => "index_articles_on_language_id"
   add_index "articles", ["slug"], :name => "index_articles_on_slug"
 
   create_table "comments", :force => true do |t|
@@ -36,6 +37,14 @@ ActiveRecord::Schema.define(:version => 20130608192144) do
   end
 
   add_index "comments", ["article_id"], :name => "index_comments_on_article_id"
+
+  create_table "languages", :force => true do |t|
+    t.string "code",    :null => false
+    t.string "name_en", :null => false
+    t.string "name",    :null => false
+  end
+
+  add_index "languages", ["code"], :name => "index_languages_on_code", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id",     :null => false

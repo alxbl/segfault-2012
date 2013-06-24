@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe "blog page" do
   subject { page }
-  before(:each) { visit root_path }
+  before(:each) { visit root_path(nil) }
 
   describe "footer" do
     it { should have_content('Newer') }
@@ -27,7 +27,7 @@ describe "blog page" do
     after(:all) { Article.delete_all }
 
     it "should paginate 6 per page." do
-      Article.order("created_at DESC").paginate(page: 1, per_page: 6).each do |article|
+      Article.paginate(1).each do |article|
         page.should have_selector('article h2', text: article.header)
       end
       page.should have_link('Older')
@@ -35,7 +35,7 @@ describe "blog page" do
 
     it "should paginate older articles" do
       click_link "Older"
-      Article.order("created_at DESC").paginate(page: 2, per_page: 6).each do |article|
+      Article.paginate(2, :en).each do |article|
         page.should have_selector('article h2', text: article.header)
       end
       page.should have_link('Newer') # We should be able to go back.
@@ -53,7 +53,7 @@ describe "blog page" do
       @article.save
     end
 
-    before(:each) { visit article_path(@article) }
+    before(:each) { visit article_path(nil, @article) }
     after(:all) { Article.delete_all }
 
     it "should render as markdown when the body is displayed." do
@@ -84,13 +84,13 @@ describe "blog page" do
     end
 
     it "should default to English list" do
-      visit root_path
+      visit root_path(nil)
       page.should have_content "Sample Title"
       page.should_not have_content "タイトル"
     end
 
     it "should default to English show" do
-      visit article_path(@en)
+      visit article_path(nil, @en)
       page.should have_content "Sample Title"
       page.should_not have_content "タイトル"
     end

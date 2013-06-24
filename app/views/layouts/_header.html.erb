@@ -12,10 +12,10 @@
    <header class="hat">
     <h1>Segmentation Fault</h1>
     <nav>
-     <!--<ul class="lang-nav">
-      <li><a class="en" href="/">en</a></li>
-      <li><a class="ja" href="/ja">ja</a></li>
-     </ul>-->
+     <ul class="lang-nav">
+      <li><%= link_to 'English', root_path(nil), class: 'en' %></li>
+      <li><%= link_to '日本語', root_path('ja'), class: 'ja' %></li>
+     </ul>
      <a class="logo" href="/">
       <img src="/segfault.svg" alt="Segfault">
      </a>

@@ -17,7 +17,7 @@ describe Article do
     it { should respond_to(:tags) }
     it { should respond_to(:comments) }
     it { should respond_to(:date) }
-    it { should respond_to(:lang) }
+    it { should respond_to(:language) }
   end
 
   describe "slug" do
