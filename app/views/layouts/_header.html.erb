@@ -18,11 +18,11 @@
      </ul>
      <%= link_to image_tag("/segfault.svg", alt: "Segfault"), root_path, class: 'logo' %>
      <ul class="main-nav">
-      <li class="nav-home"><%= link_to "Home", root_path %>
-      <li class="nav-about"><%= link_to "About", about_path %>
-      <!--<li class="nav-portfolio"><%= link_to "Portfolio", portfolio_path %>-->
+      <li class="nav-home"><%= link_to (t "home"), root_path %>
+      <li class="nav-about"><%= link_to (t "about"), about_path %>
+      <!--<li class="nav-portfolio"><%= link_to (t "portfolio"), portfolio_path %>-->
       <li><%= link_to "GitHub", 'https://www.github.com/alxbl' %>
-      <li class="nav-resume"><%= link_to "Resume", resume_path %>
+      <li class="nav-resume"><%= link_to (t "resume"), resume_path %>
      </ul>
     </nav>
   </header>
