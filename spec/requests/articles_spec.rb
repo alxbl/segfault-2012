@@ -79,9 +79,7 @@ describe "blog page" do
       @en = Article.from_file('sample', 'en')
       @ja = Article.from_file('sample', 'ja')
     end
-    after(:all) do
-      Article.delete_all
-    end
+    after(:all) { Article.delete_all }
 
     it "should default to English list" do
       visit root_path(nil)
@@ -94,5 +92,35 @@ describe "blog page" do
       page.should have_content "Sample Title"
       page.should_not have_content "タイトル"
     end
+  end
+
+  describe "rss feed" do
+    before(:all) do
+      @articles = { nil => Article.from_file('sample', 'en'), :ja => Article.from_file('sample', 'ja') }
+      @locales = [nil, :ja]
+    end
+    after(:all) { Article.delete_all }
+
+    it "should have the rss structure" do
+      selectors = ['rss', 'rss channel title', 'rss channel description', 'rss channel link', 'rss channel language']
+      @locales.each do |l|
+        visit rss_path(l)
+        selectors.each { |s| should have_selector s }
+        should have_content(@articles[l].header)
+        should have_content(article_path(l, @articles[l]))
+      end
+    end
+
+    it "should cache articles" do
+      #new_article = FactoryGirl.create(:article)
+      #visit rss_path(@locales.first)
+      #should_not have_content new_article.header
+      pending # Caching is not enabled by default in test
+    end
+
+    it "should invalidate the cache when a new article is added" do
+      pending
+    end
+
   end
 end

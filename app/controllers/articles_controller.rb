@@ -11,6 +11,11 @@ class ArticlesController < ApplicationController
 
   def raw
     @article =  Article.filter(params[:locale]).where(:slug => params[:slug]).first!
-    render :layout => false, :content_type => 'text/x-markdown; charset=utf-8'
+    render :layout => false, :content_type => 'text/x-markdown'
+  end
+
+  def rss
+    @articles = Article.filter(params[:locale]).limit(10)
+    render :layout => false, :content_type => 'application/xml'
   end
 end

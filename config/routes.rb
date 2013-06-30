@@ -15,6 +15,7 @@ SegfaultMe::Application.routes.draw do
     match 'page/:page' => 'articles#list', :constraints => { page: PAGE_REGEX }, as: :page, :defaults => { page: 1 }
     match 'posts/:slug' => 'articles#show', :constraints => { slug: SLUG_REGEX }, as: :article
     match 'posts/raw/:slug' => 'articles#raw', :constraints => { slug: SLUG_REGEX }, as: :raw
+    match 'feed/rss' => 'articles#rss', as: :rss
 
     match '/404', :to => 'errors#error_404'
     match '/500', :to => 'errors#error_500'

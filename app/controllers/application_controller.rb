@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   private
   def extract_locale_from_header
+    return 'en' unless request.env.has_key? "HTTP_ACCEPT_LANGUAGE"
     request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
   end
 end

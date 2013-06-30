@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 class Article < ActiveRecord::Base
+  SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
+  CACHE_KEY = 'article_cache'
   attr_accessible :allow_comments, :md, :html, :header, :slug
 
   validates :allow_comments, presence: true
-  SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
   validates :slug, presence: true,
                    length: {maximum: 255},
                    format: {with: SLUG_REGEX}

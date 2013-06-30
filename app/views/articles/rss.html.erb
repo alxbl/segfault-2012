@@ -1,0 +1,15 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+ <channel>
+   <title>Segmentation Fault</title>
+   <link><%= root_url %></link>
+   <description>
+    <%= t 'rss_desc' %>
+   </description>
+   <language><%= t 'rss_lang' %></language>
+   <ttl>40</ttl>
+   <lastBuildDate><%= Time.now.to_formatted_s :rfc822 %></lastBuildDate>
+   <atom:link href="<%= rss_url %>" rel="self" type="application/rss+xml" />
+
+<%= render :partial => 'articles/article_rss', :collection =>  @articles %>
+ </channel>
+</rss>
