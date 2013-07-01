@@ -56,7 +56,7 @@ class Article < ActiveRecord::Base
 
   def self.from_file(slug, lang)
     # Lazily instantiate markdown
-    @@md ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :fenced_code_blocks => true, :no_intra_emphasis => true)
+    @@md ||= Redcarpet::Markdown.new(Pygmentizer, :autolink => true, :fenced_code_blocks => true, :no_intra_emphasis => true)
 
     # Locate the file based on its slug
     path = Rails.root.join('public', 'articles', lang, "#{slug}.md")
@@ -96,5 +96,12 @@ class Article < ActiveRecord::Base
       # Parsing failed, return an empty or partial hash.
     end
     return metadata
+  end
+end
+
+class Pygmentizer < Redcarpet::Render::HTML
+  def block_code(code, language)
+    require 'pygmentize'
+    Pygmentize.process(code, language) if language
   end
 end

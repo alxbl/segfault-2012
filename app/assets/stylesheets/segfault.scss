@@ -2,7 +2,7 @@
 /* ---------- *
    Global
  * ---------- */
-.c {
+div.c {
     margin: 0 auto;
     width: 75%;
     padding-left: $base-spacing-unit;
@@ -91,6 +91,14 @@ article header {
     }
 }
 
+.highlight {
+    @extend .soft-half--ends;
+    @extend .push--bottom;
+    > * {
+        font-family: 'Droid Sans Mono', sans-serif;
+    }
+}
+
 /* ---------- *
    Footer
  * ---------- */
@@ -126,6 +134,6 @@ article header {
 
 /* footerStick */
 html, body { height: 100%; }
-.c { position: relative; min-height: 100%; }
+div.c { position: relative; min-height: 100%; }
 .feet { position: relative; margin-top: -10em; }
 .g { padding-bottom: 8em; }

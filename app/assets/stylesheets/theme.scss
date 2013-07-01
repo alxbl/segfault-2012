@@ -4,7 +4,7 @@ html {
     background: $ui-page-background;
 }
 
-.blog, li, pre, code {
+.blog, li, code {
         border-color: rgba(0, 0, 0, 0.075)!important;
 }
 
@@ -72,9 +72,13 @@ article {
         }
     }
 
-    p code, pre {
+    code {
         border-top: 1px solid;
         border-bottom: 1px solid;
+    }
+
+    pre {
+        @extend .flush--ends;
     }
 
     footer {

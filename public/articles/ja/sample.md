@@ -41,11 +41,13 @@ vitae arcu auctor lobortis at vel nisl. Nulla facilisi.
 
 And a code block:
 
+``` python
     i = 0
     while i != 100:
         print "Python!"
         i = i + 1
         # A beautiful Python loop.
+```
 
 I'm not sure. I think this covers it all. Oh. [links][1] and
 http://www.segfault.me inline links too. That will be all for now.
