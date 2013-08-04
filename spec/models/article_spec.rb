@@ -18,7 +18,7 @@ describe Article do
     it { should respond_to(:comments) }
     it { should respond_to(:date) }
     it { should respond_to(:language) }
-    it { Article.constants(false).include?(:CACHE_KEY).should == true }
+    it { Article.constants(false).include?(:RSS_CACHE).should == true }
   end
 
   describe "slug" do

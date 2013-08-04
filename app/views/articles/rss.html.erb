@@ -1,3 +1,4 @@
+<% cache(Article::RSS_CACHE) do %>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
  <channel>
    <title>Segmentation Fault</title>
@@ -13,3 +14,4 @@
 <%= render :partial => 'articles/article_rss', :collection =>  @articles %>
  </channel>
 </rss>
+<% end %>

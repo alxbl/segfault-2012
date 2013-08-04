@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Article < ActiveRecord::Base
   SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
-  CACHE_KEY = 'article_cache'
+  RSS_CACHE = 'rss_cache'
   attr_accessible :allow_comments, :md, :html, :header, :slug
 
   validates :allow_comments, presence: true
@@ -76,8 +76,10 @@ class Article < ActiveRecord::Base
       taglist = meta["tags"].split /,|、/ if meta.has_key? "tags"
       taglist.map { |t| a.add_tag Tag.from_name(t.strip) }
       a.save
-#    rescue
-#      a = nil
+      # Unfortunately need to create a controller to expire from within model.
+      ActionController::Base.new.expire_fragment(Article::RSS_CACHE) # Update RSS feed.
+    rescue
+      a = nil
     end
     return a
   end
