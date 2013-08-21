@@ -2,20 +2,16 @@
 class Article < ActiveRecord::Base
   SLUG_REGEX = /^[a-z]([a-z]|\-[^\-])*[a-z]*$/i
   RSS_CACHE = 'rss_cache'
-  attr_accessible :allow_comments, :md, :html, :header, :slug
+  attr_accessible :allow_comments, :slug
 
   validates :allow_comments, presence: true
   validates :slug, presence: true,
                    length: {maximum: 255},
                    format: {with: SLUG_REGEX}
-  validates :md, presence: true
-  validates :html, presence: true
-  validates :header, presence: true, length: {maximum: 255}
 
-  has_many :taggings, :dependent => :delete_all
-  has_many :tags, :through => :taggings
-  belongs_to :language
-  has_many :comments
+  has_many :translations, :dependent => :delete_all
+
+  default_scope { includes(translations: :language) }
 
   def date
     created_at.strftime '%B %d %Y' # TODO: Internationalize
@@ -25,65 +21,84 @@ class Article < ActiveRecord::Base
     slug
   end
 
-  # Tags an article with the given tag, creating it if it does not already exist.
-  #
-  # +tag+:: A tag to associate to this article.
-  def add_tag(tag)
-    t = Tagging.new()
-    t.article = self
-    t.tag = tag
-    begin
-      self.taggings << t
-    rescue # Already tagged
-      false
+  def translation # TODO: Make private
+    unless @translation
+      translations.each do |t|
+        next unless t.language.code == I18n.locale
+        @translation = t
+      end
     end
+    @translation ||= translations.first
   end
 
-  def remove_tag(tag)
-    self.taggings.each do |t|
-      next unless t.tag == tag
-      self.taggings.delete(t)
-    end
+  def title
+    translation.header
   end
 
-  def self.filter(locale)
-    joins(:language).where('languages.code' => locale || 'en')
+  # Abstract API
+  def tags
+    translation.tags
   end
 
-  def self.paginate(page, locale='en')
-    filter(locale).order("created_at DESC").paginate(:page => page, :per_page => 6) # TODO: Move to APP_CONFIG?
+  def content
+    translation.html_cache
   end
 
-  def self.from_file(slug, lang)
+  def comments
+    [] # TODO: Methood stub
+  end
+
+  def self.page(page)
+      order("created_at DESC")
+      .paginate(:page => page, :per_page => 6) # TODO: Move to APP_CONFIG?
+  end
+
+  def self.from_file(slug)
     # Lazily instantiate markdown
     @@md ||= Redcarpet::Markdown.new(Pygmentizer, :autolink => true, :fenced_code_blocks => true, :no_intra_emphasis => true)
+    @@langs ||= Language.all # Cache the list of languages for this request
 
-    # Locate the file based on its slug
-    path = Rails.root.join('public', 'articles', lang, "#{slug}.md")
-    begin
-      md = IO.read(path)
-      data = md.split /\n\n|\r\n\r\n/, 2 # Split at the first two consecutive line breaks.
-      meta = Article.parse_metadata(data[0])
-      meta["allow comments"] = true if !meta.has_key? "allow comments" # Allow comments by default.
-      content = data[1]
+    a = Article.new(slug: slug)
 
-      l = Language.find_by_code(lang)
-      a = Article.new(slug: slug,
-                          header: meta["title"],
-                          md: content, html: @@md.render(content),
-                          allow_comments: meta["allow comments"])
-      a.language = l
-      taglist = meta["tags"].split /,|、/ if meta.has_key? "tags"
-      taglist.map { |t| a.add_tag Tag.from_name(t.strip) }
-      a.save
-      # Unfortunately need to create a controller to expire from within model.
-      ActionController::Base.new.expire_fragment(Article::RSS_CACHE) # Update RSS feed.
-    rescue
-      a = nil
+    @@langs.each do |lang|
+
+      # Locate the file based on its slug
+      path = Rails.root.join('public', 'articles', lang.code, "#{slug}.md")
+
+      begin
+        md = IO.read(path)
+        data = md.split /\n\n|\r\n\r\n/, 2 # Split at the first two consecutive line breaks.
+
+        meta = Article.parse_metadata(data[0])
+        meta["allow comments"] = true if !meta.has_key? "allow comments" # Allow comments by default.
+        content = data[1]
+
+        # Create the article entry.
+        if lang.id == 1
+            a.allow_comments = meta["allow comments"]
+            a.save!
+        end
+
+        # Create the translation for the current language
+        t = Translation.new()
+        t.language = lang
+        t.article = a
+        t.markdown = content
+        t.html_cache = @@md.render(content)
+        t.inject_metadata meta
+        t.save!
+
+        #a.translations << t
+       #rescue
+        #return nil if lang.id == 1 # If we can't find the default language, no article is created.
+      end
     end
+    # Unfortunately need to create a controller to expire from within model.
+    ActionController::Base.new.expire_fragment(Article::RSS_CACHE)
     return a
   end
 
+  #private #TODO: Uncomment
   def self.parse_metadata(content)
     metadata = Hash.new()
     begin

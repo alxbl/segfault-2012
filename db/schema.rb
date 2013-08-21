@@ -11,32 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130624182423) do
+ActiveRecord::Schema.define(:version => 20130807033026) do
 
   create_table "articles", :force => true do |t|
     t.string   "slug",                             :null => false
-    t.string   "header",                           :null => false
-    t.text     "md",                               :null => false
     t.boolean  "allow_comments", :default => true, :null => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.text     "html",                             :null => false
-    t.integer  "language_id",    :default => 1,    :null => false
   end
 
-  add_index "articles", ["language_id"], :name => "index_articles_on_language_id"
-  add_index "articles", ["slug"], :name => "index_articles_on_slug"
+  add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
 
   create_table "comments", :force => true do |t|
-    t.string   "author",     :default => "Anonymous", :null => false
-    t.text     "body",                                :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.integer  "article_id",                          :null => false
-    t.integer  "flagged",    :default => 0,           :null => false
+    t.string   "author",         :default => "Anonymous", :null => false
+    t.text     "body",                                    :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.integer  "translation_id",                          :null => false
+    t.integer  "flagged",        :default => 0,           :null => false
   end
 
-  add_index "comments", ["article_id"], :name => "index_comments_on_article_id"
+  add_index "comments", ["translation_id"], :name => "index_comments_on_translation_id"
 
   create_table "languages", :force => true do |t|
     t.string "code",    :null => false
@@ -47,13 +42,13 @@ ActiveRecord::Schema.define(:version => 20130624182423) do
   add_index "languages", ["code"], :name => "index_languages_on_code", :unique => true
 
   create_table "taggings", :force => true do |t|
-    t.integer  "tag_id",     :null => false
-    t.integer  "article_id", :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "tag_id",         :null => false
+    t.integer  "translation_id", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
-  add_index "taggings", ["tag_id", "article_id"], :name => "index_taggings_on_tag_id_and_article_id", :unique => true
+  add_index "taggings", ["tag_id", "translation_id"], :name => "index_taggings_on_tag_id_and_translation_id", :unique => true
 
   create_table "tags", :force => true do |t|
     t.string   "name",                      :null => false
@@ -63,5 +58,15 @@ ActiveRecord::Schema.define(:version => 20130624182423) do
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
+
+  create_table "translations", :force => true do |t|
+    t.integer "article_id",  :null => false
+    t.integer "language_id", :null => false
+    t.string  "header",      :null => false
+    t.text    "markdown",    :null => false
+    t.text    "html_cache",  :null => false
+  end
+
+  add_index "translations", ["article_id", "language_id"], :name => "index_translations_on_article_id_and_language_id", :unique => true
 
 end

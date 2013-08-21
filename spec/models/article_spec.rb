@@ -3,21 +3,21 @@ require 'spec_helper'
 
 describe Article do
   before do
-    @article = Article.new(slug: "test-article", md: "#Hello World", html: "<h1>Hello World</h1>", header: "Header", allow_comments: true)
-    @article.save
+    @article = FactoryGirl.create(:article)
   end
   subject { @article }
 
   describe "API" do
     it { should respond_to(:slug) }
-    it { should respond_to(:md) }
-    it { should respond_to(:html) }
-    it { should respond_to(:header) }
     it { should respond_to(:allow_comments) }
-    it { should respond_to(:tags) }
-    it { should respond_to(:comments) }
     it { should respond_to(:date) }
-    it { should respond_to(:language) }
+    it { Article.should respond_to(:page) }
+
+    # Translation abstraction API
+    it { should respond_to(:tags) }
+    it { should respond_to(:title) }
+    it { should respond_to(:content) }
+    it { should respond_to(:comments) }
     it { Article.constants(false).include?(:RSS_CACHE).should == true }
   end
 
@@ -47,67 +47,47 @@ describe Article do
       end
     end
 
-    describe "should be unique" do
-      before { @duplicate = Article.new(slug: "test-article", md: "#Duplicate Article", html: "<h1>Duplicate Article</h1>", header: "Header") }
-      subject { @duplicate }
-      it { should_not == @duplicate.save }
-    end
-
-    describe "length <= 255" do
-      before { @article.slug = "a"*300 }
-      it { should_not be_valid }
-    end
-  end
-
-  describe "markdown should not be empty" do
-    before { @article.md = ' ' }
-    it { should_not be_valid }
-  end
-
-  describe "html should not be empty" do
-    before { @article.html = ' ' }
-    it { should_not be_valid }
-  end
-
-  describe "header" do
-    describe "should not be empty" do
-      before { @article.header = '' }
-      it { should_not be_valid }
-    end
-
-    describe "length <= 255" do
-      before { @article.header = 'a'*300 }
-      it { should_not be_valid }
+    it "should be less than 255 characters long" do
+      @article.slug = "a"*300
+      should_not be_valid
     end
   end
 
   describe "parsing from file" do
     before do
-      @article_en = Article.from_file('sample', 'en')
-      @article_ja = Article.from_file('sample', 'ja')
+      @article = Article.from_file('sample')
     end
 
-    describe "loads markdown properly" do
-      it { @article_en.md.should =~ /# Sample/ }
-      it { @article_ja.md.should =~ /# サンプル/ }
+    describe "loads translations properly" do
+      it { @article.translations.count.should == 2 }
     end
 
-    describe "renders html properly" do
-      it { @article_en.html.should =~ /<h1>Sample<\/h1>/ }
-      it { @article_ja.html.should =~ /<h1>サンプル<\/h1>/ }
+    it "loads markdown properly" do
+      @article.translations.each do |t|
+        t.markdown.should =~ /#/
+      end
     end
 
-    describe "loads tags properly" do
-      it { @article_en.taggings.size.should == 2 }
-      it { @article_en.taggings.first.tag.name.should == "Tag" }
+    it "renders html properly" do
+      @article.translations.each do |t|
+        t.html_cache.should =~ /<h1>/
+      end
     end
 
-    describe "loads header properly" do
-      it { @article_en.header.should == "Sample Title" }
+    it "loads tags properly" do
+      @article.translations.each do |t|
+        t.taggings.size.should == 2
+      end
     end
 
-    describe "loads slug properly" do
-      it { @article_en.slug.should == "sample" }
+    it "loads header properly" do
+      @article.translations.each do |t|
+        t.header.should_not be_blank
+      end
+    end
+
+    it "loads slug properly" do
+      @article.slug.should == "sample"
     end
   end
 end

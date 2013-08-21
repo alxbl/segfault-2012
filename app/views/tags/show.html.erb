@@ -1,7 +1,7 @@
-<% provide(:title, @tag.name) %>
-<h1>Articles filed under <%= @tag.name %></h1>
+<% provide(:title, @title) %>
+<h1>Articles filed under <%= @title %></h1>
 <ul class="blog"><% if @articles.empty? %><li>
  <article>
-  There are no articles tagged <%= @tag.name %>.
+  There are no articles tagged <%= @title %>.
  </article>
 </li><% else %><%= render :partial => 'articles/article_list', :collection => @articles %><% end %></ul>

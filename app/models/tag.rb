@@ -4,7 +4,7 @@ class Tag < ActiveRecord::Base
   validates :name, presence: true, length: {maximum: 50}
 
   has_many :taggings
-  has_many :articles, :through => :taggings
+  has_many :translations, :through => :taggings
 
   def to_param
     name

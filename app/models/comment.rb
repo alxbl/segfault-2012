@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   attr_accessible :body, :author, :flagged
-  belongs_to :article
+  belongs_to :translation
 
   validates :body, length: {maximum: 300}
-  validates :article, :presence => true
+  validates :translation, :presence => true
   validates :flagged, :presence => true
 end

@@ -3,124 +3,103 @@ require 'spec_helper'
 
 describe "blog page" do
   subject { page }
-  before(:each) { visit root_path(nil) }
+  before(:all) { Article.delete_all }
 
-  describe "footer" do
-    it { should have_content('Newer') }
-    it { should have_content('Older') }
+  describe "with no articles available" do
+    before { visit root_path(nil) }
 
-    describe "no newer entries" do
+    it { should have_selector('article', text: 'no articles') }
+
+    describe "footer" do
+      it { should have_content('Newer') }
+      it { should have_content('Older') }
       it { should_not have_link('Newer') }
-    end
-
-    describe "no older entries" do
       it { should_not have_link('Older') }
     end
   end
 
-  describe "no articles available" do
-    it { should have_selector('article', text: 'no articles') }
-  end
-
-  describe "article listing" do
-    before(:all) { 8.times { FactoryGirl.create(:article) } }
+  describe "with articles available" do
+    before(:all) do
+      8.times { FactoryGirl.create(:article) }
+      @sample = Article.from_file('sample')
+    end
     after(:all) { Article.delete_all }
 
-    it "should paginate 6 per page." do
-      Article.paginate(1).each do |article|
-        page.should have_selector('article h2', text: article.header)
+    describe "listing" do
+      before { visit root_path(nil) }
+      it "should paginate 6 per page." do
+        Article.page(1).each do |article|
+          page.should have_selector('article h2', text: article.title)
+        end
+        page.should have_link('Older')
       end
-      page.should have_link('Older')
-    end
 
-    it "should paginate older articles" do
-      click_link "Older"
-      Article.paginate(2, :en).each do |article|
-        page.should have_selector('article h2', text: article.header)
-      end
-      page.should have_link('Newer') # We should be able to go back.
-    end
-  end
-
-  describe "article view" do
-    before(:all) do
-      @article = FactoryGirl.create(:article)
-      @article.md = "# Header\n## Subheader\n\n* Bullet\n* Bullet\n* Bullet\n\n"
-      @md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true) # For a test case.
-      @article.add_tag Tag.from_name("Tag1")
-      @article.add_tag Tag.from_name("Tag2")
-      @article.html = @md.render(@article.md)
-      @article.save
-    end
-
-    before(:each) { visit article_path(nil, @article) }
-    after(:all) { Article.delete_all }
-
-    it "should render as markdown when the body is displayed." do
-      page.should have_content(@article.header)
-      page.should have_content(@article.date)
-      page.should have_selector('article h1', text: 'Header')
-      page.should have_selector('article h2', text: 'Subheader')
-      page.should have_selector('li', text: 'Bullet')
-    end
-
-    it "should link to the raw markdown" do
-      should have_link("raw")
-    end
-
-    it "should link tags" do
-      should have_link("Tag1")
-      should have_link("Tag2")
-    end
-  end
-
-  describe "language" do
-    before(:all) do
-      @en = Article.from_file('sample', 'en')
-      @ja = Article.from_file('sample', 'ja')
-    end
-    after(:all) { Article.delete_all }
-
-    it "should default to English list" do
-      visit root_path(nil)
-      page.should have_content "Sample Title"
-      page.should_not have_content "タイトル"
-    end
-
-    it "should default to English show" do
-      visit article_path(nil, @en)
-      page.should have_content "Sample Title"
-      page.should_not have_content "タイトル"
-    end
-  end
-
-  describe "rss feed" do
-    before(:all) do
-      @articles = { nil => Article.from_file('sample', 'en'), :ja => Article.from_file('sample', 'ja') }
-      @locales = [nil, :ja]
-    end
-    after(:all) { Article.delete_all }
-
-    it "should have the rss structure" do
-      selectors = ['rss', 'rss channel title', 'rss channel description', 'rss channel link', 'rss channel language']
-      @locales.each do |l|
-        visit rss_path(l)
-        selectors.each { |s| should have_selector s }
-        should have_content(@articles[l].header)
-        should have_content(article_path(l, @articles[l]))
+      it "should paginate older articles" do
+        click_link "Older"
+        Article.page(2).each do |article|
+          page.should have_selector('article h2', text: article.title)
+        end
+        page.should have_link('Newer') # We should be able to go back.
       end
     end
 
-    it "should cache articles" do
-      #new_article = FactoryGirl.create(:article)
-      #visit rss_path(@locales.first)
-      #should_not have_content new_article.header
-      pending # Caching is not enabled by default in test
+    describe "article view" do
+      before { visit article_path(nil, @sample) }
+
+      it "should render as markdown when the body is displayed." do
+        page.should have_content(@sample.title)
+        page.should have_content(@sample.date)
+        page.should have_selector('article h1', text: 'Sample')
+        page.should have_selector('ol', text: 'Number List')
+        page.should have_selector('li', text: 'List')
+      end
+
+      it "should link to the raw markdown" do
+        should have_link("raw")
+      end
+
+      it "should link tags" do
+        should have_link("Tag")
+        should have_link("Sample")
+      end
     end
 
-    it "should invalidate the cache when a new article is added" do
-      pending
+    describe "language" do
+      it "should default to English list" do
+        visit root_path(nil)
+        page.should have_content "Sample Title"
+        page.should_not have_content "タイトル"
+      end
+
+      it "should default to English show" do
+        visit article_path(nil, @sample)
+        page.should have_content "Sample Title"
+        page.should_not have_content "タイトル"
+      end
     end
 
+    describe "rss feed" do
+      it "should have the rss structure" do
+        selectors = ['rss', 'rss channel title', 'rss channel description', 'rss channel link', 'rss channel language']
+        [nil, :ja].each do |l|
+          visit rss_path(l)
+          selectors.each { |s| should have_selector s }
+          should have_content(@sample.title)
+          should have_content(article_path(l, @sample))
+        end
+      end
+
+      it "should cache articles" do
+        #new_article = FactoryGirl.create(:article)
+        #visit rss_path(@locales.first)
+        #should_not have_content new_article.header
+        pending # Caching is not enabled by default in test
+      end
+
+      it "should invalidate the cache when a new article is added" do
+        pending
+      end
+
+    end
   end
 end

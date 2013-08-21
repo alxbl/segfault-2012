@@ -3,13 +3,14 @@ require 'spec_helper'
 describe Comment do
   before do
     @article = FactoryGirl.create(:article)
+    @article.save!
     @comment = Comment.new(body: 'Test Comment')
-    @comment.article = @article
+    @comment.translation = @article.translations.first
   end
   subject { @comment }
 
   describe "API" do
-    it { should respond_to(:article) }
+    it { should respond_to(:translation) }
     it { should respond_to(:body) }
     it { should respond_to(:flagged) }
     it { should respond_to(:author) }
@@ -23,8 +24,8 @@ describe Comment do
     end
   end
 
-  it "should always point to an article" do
-    @comment.article_id = nil
+  it "should always point to an article translation" do
+    @comment.translation_id = nil
     @comment.should_not be_valid
   end
 end

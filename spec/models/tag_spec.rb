@@ -7,7 +7,7 @@ describe Tag do
   describe "API" do
     it { should respond_to(:name) }
     it { should respond_to(:freq) }
-    it { should respond_to(:articles) }
+    it { should respond_to(:translations) }
     it { should be_valid }
   end
 
