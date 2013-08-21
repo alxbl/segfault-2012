@@ -11,17 +11,14 @@ namespace :app do
       slugs.delete a.slug
     end
 
-    p "Indexing #{slugs.size} new article(s) out of #{current_articles.size}..."
+    p "Indexing #{slugs.size} new article(s)..."
 
     slugs.each do |s|
       next if :environment == "production" && s == "sample" # Don't index the sample markdown in production.
 
       # TODO: Refactor languages to be a table in the DB.
       p "Indexing `#{s}`"
-      en = Article.from_file(s, 'en')
-      p ">> Found English" if en
-      ja = Article.from_file(s, 'ja')
-      p ">> Found Japanese" if ja
+      en = Article.from_file(s)
     end
   end
 end
