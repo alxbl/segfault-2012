@@ -9,9 +9,9 @@ class Translation < ActiveRecord::Base
   belongs_to :article
   belongs_to :language
 
-  has_many :taggings, :dependent => :delete_all
+  has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
-  has_many :comments, :dependent => :delete_all
+  has_many :comments, :dependent => :destroy
 
   # Tags an article with the given tag, creating it if it does not already exist.
   #

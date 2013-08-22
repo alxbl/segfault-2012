@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
                    length: {maximum: 255},
                    format: {with: SLUG_REGEX}
 
-  has_many :translations, :dependent => :delete_all
+  has_many :translations, :dependent => :destroy
 
   default_scope { includes(translations: :language) }
 

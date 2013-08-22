@@ -43,4 +43,12 @@ describe Translation do
       it { should_not be_valid }
     end
   end
+
+  it "should be deleted when article is deleted" do
+    a = FactoryGirl.create(:article)
+    a.translations.count.should == 2
+    tids = a.translations.map { |t| t.id }
+    a.destroy
+    tids.each { |t| expect { Translation.find_by_id! t }.to raise_error(ActiveRecord::RecordNotFound) }
+  end
 end
