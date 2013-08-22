@@ -1,32 +1,29 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe "blog page" do
+describe "blog" do
   subject { page }
-  before(:all) { Article.delete_all }
+  #before(:all) { Article.delete_all }
 
-  describe "with no articles available" do
+  describe "#index no articles" do
     before { visit root_path(nil) }
-
     it { should have_selector('article', text: 'no articles') }
-
-    describe "footer" do
-      it { should have_content('Newer') }
-      it { should have_content('Older') }
-      it { should_not have_link('Newer') }
-      it { should_not have_link('Older') }
-    end
+    it { should have_content('Newer') }
+    it { should have_content('Older') }
+    it { should_not have_link('Newer') }
+    it { should_not have_link('Older') }
   end
 
-  describe "with articles available" do
+  describe "with articles" do
     before(:all) do
       8.times { FactoryGirl.create(:article) }
       @sample = Article.from_file('sample')
     end
     after(:all) { Article.delete_all }
 
-    describe "listing" do
+    describe "#index" do
       before { visit root_path(nil) }
+
       it "should paginate 6 per page." do
         Article.page(1).each do |article|
           page.should have_selector('article h2', text: article.title)
@@ -43,7 +40,7 @@ describe "blog page" do
       end
     end
 
-    describe "article view" do
+    describe "#show" do
       before { visit article_path(nil, @sample) }
 
       it "should render as markdown when the body is displayed." do

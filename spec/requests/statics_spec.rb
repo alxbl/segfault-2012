@@ -14,7 +14,7 @@ describe "Static content" do
     it { should have_css('ul.main-nav') }
     it { should have_css('ul li.nav-home') }
     it { should have_css('ul li.nav-about') }
-    it { should have_css('ul li.nav-portfolio') }
+    # it { should have_css('ul li.nav-portfolio') }  # TODO: Uncomment when portfolio is supported.
     it { should have_css('ul li.nav-resume') }
     it { should have_selector('a', text: 'GitHub') }
 

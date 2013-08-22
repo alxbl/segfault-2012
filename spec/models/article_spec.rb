@@ -2,12 +2,11 @@
 require 'spec_helper'
 
 describe Article do
-  before do
-    @article = FactoryGirl.create(:article)
-  end
-  subject { @article }
+  describe "model" do
+    before(:all) { @a = FactoryGirl.build(:article) }
+    after(:all) { @a.destroy }
+    subject { @a }
 
-  describe "API" do
     it { should respond_to(:slug) }
     it { should respond_to(:allow_comments) }
     it { should respond_to(:date) }
@@ -19,47 +18,46 @@ describe Article do
     it { should respond_to(:content) }
     it { should respond_to(:comments) }
     it { Article.constants(false).include?(:RSS_CACHE).should == true }
-  end
 
-  describe "slug" do
-    it "is required" do
-      @article.slug = ''
-      @article.should_not be_valid
-    end
+    describe ".slug" do
+      it "is required" do
+        @a.slug = ''
+        @a.should_not be_valid
+      end
 
-    it "should be well formatted" do
-      invalid_slugs = %w[numbers-323-are-invalid
+      it "is well formatted" do
+        invalid_slugs = %w[numbers-323-are-invalid
                          -starts-with-dash
                          ends-with-dash-
                          symbols_are!invalid+too.
                          double--dash
                          source-is-in-router.md]
-      valid_slugs = %w[simple-slug nodashslug a a-b a-rather-long-slug-is-okay]
+        valid_slugs = %w[simple-slug nodashslug a a-b a-rather-long-slug-is-okay]
 
-      invalid_slugs.each do |s|
-        @article.slug = s
-        @article.should_not be_valid
+        invalid_slugs.each do |s|
+          @a.slug = s
+          @a.should_not be_valid
+        end
+
+        valid_slugs.each do |s|
+          @a.slug = s
+          @a.should be_valid
+        end
       end
 
-      valid_slugs.each do |s|
-        @article.slug = s
-        @article.should be_valid
+      it "is at most 255 characters" do
+        @a.slug = "a"*300
+        should_not be_valid
       end
-    end
-
-    it "should be less than 255 characters long" do
-      @article.slug = "a"*300
-      should_not be_valid
     end
   end
 
-  describe "parsing from file" do
-    before do
-      @article = Article.from_file('sample')
-    end
-
-    describe "loads translations properly" do
-      it { @article.translations.count.should == 2 }
+  describe ".from_file" do
+    before(:all) { @article = Article.from_file('sample') }
+    after(:all) { @article.destroy }
+    subject { @article }
+    it "loads translations properly" do
+      @article.translations.count.should == 2
     end
 
     it "loads markdown properly" do
