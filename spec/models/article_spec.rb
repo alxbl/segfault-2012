@@ -17,6 +17,7 @@ describe Article do
     it { should respond_to(:title) }
     it { should respond_to(:content) }
     it { should respond_to(:comments) }
+    it { should respond_to(:markdown) }
     it { Article.constants(false).include?(:RSS_CACHE).should == true }
 
     describe ".slug" do
@@ -86,6 +87,23 @@ describe Article do
 
     it "loads slug properly" do
       @article.slug.should == "sample"
+    end
+
+    describe "invalid file" do
+      before(:all) do
+        @translations_before = Translation.all.count
+        @invalid = Article.from_file('doesnotexist')
+      end
+
+      it "does not create article entry" do
+        expect { Article.find_by_slug!('doesnotexist') }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it "does not created orphan translations" do
+        expect(@translations_before).to equal Translation.all.count
+      end
+
+      it { expect(@invalid).to equal nil }
     end
   end
 end

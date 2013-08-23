@@ -24,6 +24,11 @@ describe "blog" do
     describe "#index" do
       before { visit root_path(nil) }
 
+      it "should follow locale" do
+        visit root_path(:ja)
+        page.should have_content 'タイトル'
+      end
+
       it "should paginate 6 per page." do
         Article.page(1).each do |article|
           page.should have_selector('article h2', text: article.title)
@@ -51,6 +56,11 @@ describe "blog" do
         page.should have_selector('li', text: 'List')
       end
 
+      it "should follow locale" do
+        visit article_path(:ja, @sample)
+        should have_content 'タイトル'
+      end
+
       it "should link to the raw markdown" do
         should have_link("raw")
       end
@@ -62,20 +72,32 @@ describe "blog" do
     end
 
     describe "language" do
-      it "should default to English list" do
+      it "defaults to English list" do
         visit root_path(nil)
         page.should have_content "Sample Title"
         page.should_not have_content "タイトル"
       end
 
-      it "should default to English show" do
+      it "defaults to English show" do
         visit article_path(nil, @sample)
         page.should have_content "Sample Title"
         page.should_not have_content "タイトル"
       end
     end
 
-    describe "rss feed" do
+    describe "#raw" do
+      before { visit raw_path(nil, @sample) }
+      it "follows locale" do
+        visit raw_path(:ja, @sample)
+        should have_content 'サンプル'
+      end
+
+      it "displays markdown" do
+        page.status_code.should == 200
+      end
+    end
+
+    describe "#rss" do
       it "should have the rss structure" do
         selectors = ['rss', 'rss channel title', 'rss channel description', 'rss channel link', 'rss channel language']
         [nil, :ja].each do |l|

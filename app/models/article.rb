@@ -10,8 +10,7 @@ class Article < ActiveRecord::Base
                    format: {with: SLUG_REGEX}
 
   has_many :translations, :dependent => :destroy
-
-  default_scope { includes(translations: :language) }
+  default_scope { order "created_at DESC" }
 
   def date
     created_at.strftime '%B %d %Y' # TODO: Internationalize
@@ -22,13 +21,7 @@ class Article < ActiveRecord::Base
   end
 
   def translation # TODO: Make private
-    unless @translation
-      translations.each do |t|
-        next unless t.language.code == I18n.locale
-        @translation = t
-      end
-    end
-    @translation ||= translations.first
+    Translation.joins(:language).where("languages.code = '#{I18n.locale}'").find_by_article_id(self.id)
   end
 
   def title
@@ -48,8 +41,12 @@ class Article < ActiveRecord::Base
     [] # TODO: Methood stub
   end
 
+  def markdown
+    translation.markdown
+  end
+
   def self.page(page)
-      order("created_at DESC")
+    joins(translations: :language).where("languages.code = '#{I18n.locale}'")
       .paginate(:page => page, :per_page => 6) # TODO: Move to APP_CONFIG?
   end
 
@@ -61,7 +58,6 @@ class Article < ActiveRecord::Base
     a = Article.new(slug: slug)
 
     @@langs.each do |lang|
-
       # Locate the file based on its slug
       path = Rails.root.join('public', 'articles', lang.code, "#{slug}.md")
 
@@ -87,10 +83,8 @@ class Article < ActiveRecord::Base
         t.html_cache = @@md.render(content)
         t.inject_metadata meta
         t.save!
-
-        #a.translations << t
-       #rescue
-        #return nil if lang.id == 1 # If we can't find the default language, no article is created.
+       rescue
+        return nil if lang.id == 1 # If we can't find the default language, no article is created.
       end
     end
     # Unfortunately need to create a controller to expire from within model.
@@ -109,8 +103,7 @@ class Article < ActiveRecord::Base
         v = pp[1]
         metadata[k.strip.downcase] = v.strip
       end
-    rescue
-      # Parsing failed, return an empty or partial hash.
+    rescue # Parsing failed, return an empty or partial hash.
     end
     return metadata
   end
