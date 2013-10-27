@@ -79,7 +79,7 @@ class Article < ActiveRecord::Base
         t = Translation.new()
         t.language = lang
         t.article = a
-        t.markdown = content
+        t.markdown = md
         t.html_cache = @@md.render(content)
         t.inject_metadata meta
         t.save!
