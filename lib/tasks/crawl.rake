@@ -1,7 +1,7 @@
 namespace :crawl do
   desc "Indexes an article with the given slug in the database."
   task :index, [:slug] => :environment do |t, args|
-    _index "#{args[:slug]}"
+    index_article "#{args[:slug]}"
   end
 
   desc "Searches for new articles and indexes them."
@@ -13,18 +13,13 @@ namespace :crawl do
     puts slugs.size > 0 ? "Indexing #{slugs.size} new article(s)\n" : "No new articles found."
 
     slugs.each do |s|
-      next if :environment == "production" && s == "sample" # Don't index the sample markdown in production.
-      _index s
+      next if Rails.env == "production" && s == "sample" # Don't index the sample markdown in production.
+      index_article s
     end
-  end
-
-  desc "Updates existing articles by indexing missing translations and updating modified translations."
-  task :update_translations => :environment do
-    raise "Task unimplemented!"
   end
 end
 
-def _index(s)
-  ok = Article.from_file(s) != nil ? "ok" : "fail"
-  puts "Indexed `#{s}.md`...#{ok}"
+def index_article(s)
+  a = Article.from_file(s)
+  puts "Indexed `#{s}.md`...#{a ? 'ok' : 'fail'}"
 end

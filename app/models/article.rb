@@ -54,22 +54,22 @@ class Article < ActiveRecord::Base
     @@md ||= Redcarpet::Markdown.new(Pygmentizer, :autolink => true, :fenced_code_blocks => true, :no_intra_emphasis => true)
     @@langs ||= Language.all
 
+    logger.info "Article.from_file(#{slug})"
     a = Article.where(slug: slug).first_or_initialize # Create or update
-
     @@langs.each do |lang|
       path = Rails.root.join('public', 'articles', lang.code, "#{slug}.md")
-
+      logger.debug "  Default lookup path is `#{path}`"
       begin
         md = IO.read(path)
         data = md.split /\n\n|\r\n\r\n/, 2 # Split at the first two consecutive line breaks.
-
         meta = Article.parse_metadata(data[0])
         meta["allow comments"] = true if !meta.has_key? "allow comments" # Allow comments by default.
         content = data[1]
 
-        if lang.id == 1 # FIXME: This should only be done if we have at least the fallback translation
-            a.allow_comments = meta["allow comments"]
-            a.save!
+        if lang.code == 'en' # FIXME: This should only be done if we have at least the fallback translation
+          a.allow_comments = meta["allow comments"]
+          a.save!
+          logger.info "  Created article"
         end
 
         t = Translation.where(language_id: lang, article_id: a).first_or_initialize # Create or update translation
@@ -79,10 +79,12 @@ class Article < ActiveRecord::Base
         t.html_cache = @@md.render(content)
         t.inject_metadata meta
         t.save!
+        logger.info "  Added translation for #{lang.name}"
       rescue # FIXME: Better error handling.
-        return nil if lang.id == 1 # If we can't find the default language, no article is created.
+        return nil if lang.code == 'en' # If we can't find the default language, no article is created.
       end
     end
+    logger.info "  Cleared RSS cache"
     ActionController::Base.new.expire_fragment(Article::RSS_CACHE)
     return a
   end
