@@ -37,4 +37,12 @@ namespace :extra do
     run "ln -nfs #{shared_path}/system/database.yml #{release_path}/config/database.yml"
   end
 end
+
+namespace :content do
+  desc 'Indexes new articles in production or updates an existing article with -s slug=article-slug'
+  task :update, :role => :app do
+    run (variables.include? :slug) ? "cd #{deploy_to}/current && #{rake} \"crawl:index[#{slug}]\" RAILS_ENV=production"
+                       : "cd #{deploy_to}/current && #{rake} crawl:new RAILS_ENV=production"
+  end
+end
 # TODO: set :use_sudo, false

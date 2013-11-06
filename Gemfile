@@ -6,8 +6,8 @@ gem 'redcarpet'
 gem 'pygmentize'
 gem 'will_paginate'
 
-gem 'capistrano'
-gem 'rvm-capistrano'
+gem 'capistrano', '2.15.4'
+gem 'rvm-capistrano', '1.3.4'
 
 group :development, :test do
   gem 'rspec-rails'

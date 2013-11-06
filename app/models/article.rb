@@ -51,14 +51,12 @@ class Article < ActiveRecord::Base
   end
 
   def self.from_file(slug)
-    # Lazily instantiate markdown
     @@md ||= Redcarpet::Markdown.new(Pygmentizer, :autolink => true, :fenced_code_blocks => true, :no_intra_emphasis => true)
-    @@langs ||= Language.all # Cache the list of languages for this request
+    @@langs ||= Language.all
 
-    a = Article.new(slug: slug)
+    a = Article.where(slug: slug).first_or_initialize # Create or update
 
     @@langs.each do |lang|
-      # Locate the file based on its slug
       path = Rails.root.join('public', 'articles', lang.code, "#{slug}.md")
 
       begin
@@ -69,38 +67,33 @@ class Article < ActiveRecord::Base
         meta["allow comments"] = true if !meta.has_key? "allow comments" # Allow comments by default.
         content = data[1]
 
-        # Create the article entry.
-        if lang.id == 1
+        if lang.id == 1 # FIXME: This should only be done if we have at least the fallback translation
             a.allow_comments = meta["allow comments"]
             a.save!
         end
 
-        # Create the translation for the current language
-        t = Translation.new()
+        t = Translation.where(language_id: lang, article_id: a).first_or_initialize # Create or update translation
         t.language = lang
         t.article = a
         t.markdown = md
         t.html_cache = @@md.render(content)
         t.inject_metadata meta
         t.save!
-       rescue
+      rescue # FIXME: Better error handling.
         return nil if lang.id == 1 # If we can't find the default language, no article is created.
       end
     end
-    # Unfortunately need to create a controller to expire from within model.
     ActionController::Base.new.expire_fragment(Article::RSS_CACHE)
     return a
   end
 
-  #private #TODO: Uncomment
+  private
   def self.parse_metadata(content)
     metadata = Hash.new()
     begin
       content.lines.each do |p|
-        pp = p.split ":", 2
-        next unless pp.size == 2
-        k = pp[0]
-        v = pp[1]
+        k, v = p.split ":", 2
+        next if k == nil || v == nil
         metadata[k.strip.downcase] = v.strip
       end
     rescue # Parsing failed, return an empty or partial hash.
