@@ -68,7 +68,7 @@ be titled *Hipster in Japan*. On that note. If you've read this far, thank you,
 and I hope you'll find it in you to hit the RSS subscription button! I promise I
 won't spam!
 
-The site is still in it's very early stages, and a lot of work still needs to be
+The site is still in its very early stages, and a lot of work still needs to be
 done before I am satisfied with its quality. My current top priorities are
 getting the **comment system** done and fully **localizing** the site (including
 this content I'm producing) to Japanese. Once that is done, I will be able to

@@ -25,15 +25,15 @@ all feels so unreal and dream-like.
 The plane ride itself is bland and almost too uneventful to talk about. Besides
 children crying, the whole trip goes without a hitch. As with all long distance
 flights, passing time becomes an issue after the first three hours. Luckily,
-Japanese culture never disappoints, and there are many varieties shows to be
-picked from as far as in-flight entertainment is concerned. I pick this TV show
-called *honmadekka!?* A Japanese variety/comedy show where professionals in a
+Japanese culture never disappoints, and there are many variety shows to be
+picked from as far as in-flight entertainment is concerned. I pick a TV show
+called *honmadekka!?*, A Japanese variety/comedy show where professionals in a
 field meet up in front of TV entertainers and proceed to discuss common myths or
 recent discoveries in a variety of different topics. The show itself is quite
 entertaining, but by far the most interesting part is the second half of the
 program, which covers something akin to a so-called life-hack. In this instance,
 the topic is about eating curry udon, a delicious dish of thick noodles in curry
-sauce) without staining your clothes when slurping the noodles.
+sauce, without staining your clothes when slurping said noodles.
 
 In a typical parody fashion, they dress up the demonstrator in an expensive
 looking formal suit that is completely white. The unfortunate man then proceeds
@@ -62,7 +62,7 @@ and grab a late dinner. We end up going to a restaurant called *Yaoya*, it
 stands for "greenery store", and accordingly so, they serve mostly vegetarian
 friendly dishes, and dishes where the focus is on vegetables. After much
 debating, we settle for a potato (and avocado) salad, a plate of hakusai and
-beef, a small fish-egg omelette and a cheese fondue.
+pork, a small fish-egg omelette and a cheese fondue.
 
 The fondue is definitely the central piece of this meal, with the melted cheese
 being served in a halved, hollow pumpkin and a steamer filled with assorted
@@ -96,7 +96,7 @@ is complete. The apartment is small. Smaller than I expected. The total surface
 is somewhere in the range of 25-30 squared meters, including the space taken up
 by furniture. That being said, it is a very cozy place and is fully furnished,
 with utilities included, along with TV cable, which is a pretty good deal. To my
-surprised, I also have a small work-table, which will delay my purchasing of a
+surprise, I also have a small work-table, which will delay my purchasing of a
 real desk.
 
 The next ordeal after seizing up the apartment is to make our way back to
