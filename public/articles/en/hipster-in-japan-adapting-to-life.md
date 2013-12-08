@@ -12,7 +12,7 @@ with the sheer amount of people, cultural differences and, well, unknowns. As
 the days pass, I feel myself falling into a comfortable routine. Getting used to
 working remotely is not as hard as I thought it would be, and I actually find
 that it is much easier for me to control my environment. After work, I get to go
-out ofr a jog, walk around the city, or sit at Starbucks, where other solitary
+out for a jog, walk around the city, or sit at Starbucks, where other solitary
 foreigners seem to find solace, and reading a book or surfing internet on my
 tablet.
 
@@ -60,8 +60,8 @@ do. The guy gets the shoes and there is an awkward silence as I try them on,
 walk with them, and then freeze, nervousness causing me to apparently forget how
 to say "These are good, I'll take them." After a moment of this, I blurt out the
 most colloquial Japanese ever, and the guy just smiles and goes "Oh, great! This
-way then.", as he takes me to the cashier. Mission Accomplished. This also made
-me realize that I'm still much more shy with my Japanese that I'd like to admit.
+way then," as he takes me to the cashier. Mission Accomplished. This also made
+me realize that I'm still much more shy with my Japanese than I'd like to admit.
 
 Come the weekend, I head out with my girlfriend to enjoy one of Kobe's more
 popular Christmas time attractions: *The Kobe Luminaries*. At around 9pm, while
@@ -70,20 +70,21 @@ it's dark out, thousands of people, both from Kobe and visitors, gather at
 form a line that takes them to the gorgeous sight. It is customary among a lot
 of the residents to visit every year and make a donation to the organization in
 order to ensure that they will be able to continue this tradition. As we near
-the luminaries, trees are decorate with gold lights and choir music is playing
+the luminaries, trees are decorated with gold lights and choir music is playing
 from mounted speakers. The sight is completely out of this world, and the
 atmosphere is one of serenity. Kids and grown up alike admire the scale of the
 breathtaking decorations and soothing music that compliments it. After a bit of
 walking, we approach the entrance hall of the central area. A picture is
 probably the best, although vastly insufficient way to illustrate the
-luminaries' magesty.
+luminaries' majesty.
 
 ![Kobe Luminaries][i2]
 
 The Luminaries are on display from December 5th to December 16th, and I have to
 honestly say that visiting them another time or two would not be too many.
 
-By now I am only starting to get used to my life here, and I am hoping to have many more experiences to share as my adventures continue.
+By now I am only starting to get used to my life here, and I am hoping to have
+many more experiences to share as my adventures continue.
 
 ----
 
