@@ -1,5 +1,5 @@
 Title:    Hello World and Dreams Coming True
-Liccense: CC BY-SA 3.0
+License:  CC BY-SA 3.0
 Tags:     Site
 
 Ever since this site came online, I have been lacking a single thing. Content.

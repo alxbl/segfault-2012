@@ -91,6 +91,11 @@ article header {
     }
 }
 
+article img {
+    display: block;
+    margin: 0 auto;
+}
+
 .highlight {
     @extend .soft-half--ends;
     @extend .push--bottom;
