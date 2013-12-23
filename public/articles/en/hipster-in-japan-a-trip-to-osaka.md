@@ -53,8 +53,8 @@ After my third coffee, and as I was starting to worry about a haircut taking so
 long, we finally caught up to each other and grabbed a quick dinner/lunch at a
 delicious Korean restaurant.
 
-Once the sun was done setting, we headed to our main reason for coming to Osaka:
-The German Christmas Market. A nice amalgam of food stands, illuminations and
+Once the sun had set, we headed to our main reason for coming to Osaka: The
+German Christmas Market. A nice amalgam of food stands, illuminations and
 activities awaited us. The usual *Oktoberfest* beer and sausage stands were, of
 course, present as well. I say usual because this is the third time I see
 Oktoberfest in Japan in 2013. The Japanese people are well-known for their
