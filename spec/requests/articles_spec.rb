@@ -56,6 +56,11 @@ describe "blog" do
         page.should have_selector('li', text: 'List')
       end
 
+      it "should include the article title in page title" do
+        visit article_path(nil, @sample)
+        page.should have_selector('html head title', text: @sample.title)
+      end
+
       it "should follow locale" do
         visit article_path(:ja, @sample)
         should have_content 'タイトル'
