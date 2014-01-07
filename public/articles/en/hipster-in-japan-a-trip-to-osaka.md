@@ -70,7 +70,7 @@ was time to make our way home.
 
 -----------------------------
 
-On a diffrent note, being in Japan has brought upon me a realization that some
+On a different note, being in Japan has brought upon me a realization that some
 of my asian friends have insisted on pointing out, but that I hadn't believed
 until experiencing it for myself: Canadians love coffee, and drink a lot of
 coffee. This might seem mundane, but it means that relative to other countries,
