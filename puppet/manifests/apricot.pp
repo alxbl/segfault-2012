@@ -88,6 +88,13 @@ file { 'database.yml':
   group   => "vagrant",
 }
 
-# TODO: Prepare Test DB
-# TODO: Seed development && test DBs
+# Prepare Environment
+exec { 'prepare_segfault':
+    command => "${as_vagrant} 'rake db:setup && rake db:test:prepare && rake db:seed RAILS_ENV=test'",
+    cwd     => "/vagrant",
+    creates => "/vagrant/db/development.sqlite3",
+    timeout => 0,
+    require => File['database.yml']
+}
+
 # Should we run unit tests upon seeding the box?
