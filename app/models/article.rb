@@ -68,6 +68,10 @@ class Article < ActiveRecord::Base
 
         if lang.code == 'en' # FIXME: This should only be done if we have at least the fallback translation
           a.allow_comments = meta["allow comments"]
+          begin 
+            a.created_at = DateTime.parse(meta["date"]) # Support persisting dates
+          rescue
+          end 
           a.save!
           logger.info "  Created article"
         end
@@ -77,6 +81,7 @@ class Article < ActiveRecord::Base
         t.article = a
         t.markdown = md
         t.html_cache = @@md.render(content)
+        #t.description = meta["description"] || nil
         t.inject_metadata meta
         t.save!
         logger.info "  Added translation for #{lang.name}"
