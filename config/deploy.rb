@@ -39,6 +39,7 @@ namespace :extra do
 end
 
 namespace :content do
+  before "deploy:update" # Update content before crawling articles.
   desc 'Indexes new articles in production or updates an existing article with -s slug=article-slug'
   task :update, :role => :app do
     run (variables.include? :slug) ? "cd #{deploy_to}/current && #{rake} \"crawl:index[#{slug}]\" RAILS_ENV=production"
