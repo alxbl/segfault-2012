@@ -1,6 +1,7 @@
 require 'bundler/capistrano'
 
 set :application, "segfault.me"
+set :use_sudo, false
 
 set :repository,  "git@segfault:site.git"
 set :branch, "master"
@@ -46,4 +47,3 @@ namespace :content do
                        : "cd #{deploy_to}/current && #{rake} crawl:new RAILS_ENV=production"
   end
 end
-# TODO: set :use_sudo, false
