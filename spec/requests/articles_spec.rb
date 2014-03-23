@@ -113,6 +113,11 @@ describe "blog" do
         end
       end
 
+      it "should display description" do
+        visit rss_path(nil)
+        should have_selector 'rss channel item description'
+      end
+
       it "should cache articles" do
         #new_article = FactoryGirl.create(:article)
         #visit rss_path(@locales.first)

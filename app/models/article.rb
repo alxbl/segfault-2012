@@ -20,12 +20,12 @@ class Article < ActiveRecord::Base
     slug
   end
 
-  def translation # TODO: Make private
-    Translation.joins(:language).where("languages.code = '#{I18n.locale}'").find_by_article_id(self.id)
-  end
-
   def title
     translation.header
+  end
+
+  def description
+    translation.description
   end
 
   # Abstract API
@@ -82,7 +82,6 @@ class Article < ActiveRecord::Base
         t.article = a
         t.markdown = md
         t.html_cache = @@md.render(content)
-        #t.description = meta["description"] || nil
         t.inject_metadata meta
         t.save!
         logger.info "  Added translation for #{lang.name}"
@@ -96,6 +95,11 @@ class Article < ActiveRecord::Base
   end
 
   private
+  def translation # TODO: Make private
+    Translation.joins(:language).where("languages.code = '#{I18n.locale}'").find_by_article_id(self.id)
+  end
+
+  #private
   def self.parse_metadata(content)
     metadata = Hash.new()
     begin

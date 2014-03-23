@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Translation < ActiveRecord::Base
-  attr_accessible :markdown, :html_cache, :header
+  attr_accessible :markdown, :html_cache, :header, :description
 
   validates :markdown, presence: true
   validates :html_cache, presence: true
@@ -36,10 +36,10 @@ class Translation < ActiveRecord::Base
 
   def inject_metadata(meta)
     # Tags
-    taglist = meta["tags"].split %r{,|、} if meta.has_key? "tags"
+    taglist = meta['tags'].split %r{,|、} if meta.has_key? 'tags'
     taglist.map { |tag| add_tag Tag.from_name(tag.strip) }
 
-    # Title
-    self.header = meta["title"]
+    self.header = meta['title']
+    self.description = meta['detail'] if meta.has_key? 'detail'
   end
 end

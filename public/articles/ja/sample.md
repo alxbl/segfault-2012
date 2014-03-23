@@ -1,6 +1,7 @@
 Title:   タイトルはこちらです
 License: CC BY-SA 3.0
 Tags:    タッグ、サンプル
+detail:  Sample Description
 
 # サンプル
 

@@ -1,6 +1,7 @@
 Title:   Sample Title
 License: CC BY-SA 3.0
 Tags:    Tag, Sample
+Detail:  Sample Description
 
 # Sample
 

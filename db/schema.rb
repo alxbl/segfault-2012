@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130807033026) do
+ActiveRecord::Schema.define(:version => 20140206021047) do
 
   create_table "articles", :force => true do |t|
     t.string   "slug",                             :null => false
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20130807033026) do
     t.string  "header",      :null => false
     t.text    "markdown",    :null => false
     t.text    "html_cache",  :null => false
+    t.string  "description"
   end
 
   add_index "translations", ["article_id", "language_id"], :name => "index_translations_on_article_id_and_language_id", :unique => true

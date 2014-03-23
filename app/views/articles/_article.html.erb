@@ -1,16 +1,29 @@
- <% provide(:title, article.title) %>
+<% provide(:title, article.title) %>
 <article>
- <header>
-   <span class="date"><%= article.date %><%= link_to "raw", raw_path(article) %></span>
-   <h1><%= article.title %></h1>
-   <!-- Licensing here -->
- </header>
+  <header>
+    <span class="date"><%= article.date %><%= link_to "raw", raw_path(article) %></span>
+    <h1><%= article.title %></h1>
+    <!-- Licensing here -->
+  </header>
 <%== article.content %>
 
 <footer>
- Filed under
- <ul class="tags">
-   <%= render article.tags %>
- </ul>
+  <section class="tags">
+    Filed under <ul class="tags"><%= render article.tags %></ul>
+  </section>
+  <section class="comments" ng-controller="CommentCtrl"><%# AngularJS will populate comments from the pre-fetched list. %>
+    <form ng-submit="addComment()">
+      <input type="text" ng-model="author" placeholder="(Anonymous)">
+      <textarea ng-model="body" placeholder="Type your comment here..."></textarea>
+      <input type="submit" value="Comment">
+    </form>
+    <ol>
+      <li ng-repeat="c in comments" class="flagged-{{c.flagged}}">
+        <span>{{c.author ? c.author : "Anonymous"}}</span>
+        <hr>
+        <p>{{c.body}}</p>
+      </li>
+    </ol>
+  </section>
 </footer>
 </article>

@@ -89,6 +89,12 @@ describe Article do
       @article.slug.should == "sample"
     end
 
+    it "parses description properly" do
+      @article.translations.each do |t|
+        t.description.should_not == nil
+      end
+    end
+
     describe "invalid file" do
       before(:all) do
         @translations_before = Translation.all.count

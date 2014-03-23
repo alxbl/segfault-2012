@@ -1,5 +1,8 @@
    <item>
     <title><%= article_rss.title %></title>
+    <% if article_rss.description != nil %>
+    <description><%= article_rss.description %></description>
+    <% end %>
     <guid><%= article_url(article_rss) %></guid>
     <link><%= article_url(article_rss) %></link>
     <pubDate><%= article_rss.created_at.to_formatted_s :rfc822 %></pubDate>
