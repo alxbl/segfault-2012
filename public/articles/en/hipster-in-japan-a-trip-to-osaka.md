@@ -1,4 +1,5 @@
 Title:   Hipster in Japan #4: A Trip to Osaka
+Date:    2013-12-23
 License: CC BY-SA 3.0
 Tags:    Japan
 

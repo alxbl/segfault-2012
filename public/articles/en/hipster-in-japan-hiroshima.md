@@ -1,4 +1,5 @@
 Title:   Hipster in Japan #5: Hiroshima
+Date:    2013-12-30
 License: CC BY-SA 3.0
 Tags:    Japan
 

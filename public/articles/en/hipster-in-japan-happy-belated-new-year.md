@@ -1,4 +1,5 @@
 Title:   Hipster in Japan #6: Happy Belated New Year
+Date:    2014-01-07
 License: CC BY-SA 3.0
 Tags:    Japan
 

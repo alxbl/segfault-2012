@@ -1,4 +1,5 @@
 Title:   Hipster in Japan #2: Adapting to Life
+Date:    2013-12-08
 License: CC BY-SA 3.0
 Tags:    Japan
 

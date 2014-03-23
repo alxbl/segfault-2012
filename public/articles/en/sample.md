@@ -1,4 +1,5 @@
 Title:   Sample Title
+Date:    2012-01-01
 License: CC BY-SA 3.0
 Tags:    Tag, Sample
 

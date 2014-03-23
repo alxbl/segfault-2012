@@ -1,4 +1,5 @@
 Title:   Hipster in Japan #3: Winter is Coming
+Date:    2013-12-15
 License: CC BY-SA 3.0
 Tags:    Japan
 

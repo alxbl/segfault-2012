@@ -1,5 +1,6 @@
 Title:   Hipster in Japan #7: Discovering Port Island
 Detail:  In which I visit IKEA for the first time and appreciate interior design.
+Date:    2014-01-13
 License: CC BY-SA 3.0
 Tags:    Japan
 

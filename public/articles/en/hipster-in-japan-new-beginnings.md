@@ -1,4 +1,5 @@
 Title:   Hipster in Japan #1: New beginnings
+Date:    2013-12-01
 License: CC BY-SA 3.0
 Tags:    Japan
 
