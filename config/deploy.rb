@@ -11,9 +11,6 @@ set :deploy_via, :remote_cache
 set :ssh_options, {:forward_agent => true}
 set :default_shell, "zsh -l" # FIXME: Get rid of RVM in production. Seriously.
 
-# Shared Articles
-set :linked_dirs, fetch(:linked_dirs) + %w{public/articles}
-
 server "segfault", :app, :web, :db, :primary => true
 
 namespace :deploy do
