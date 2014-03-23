@@ -68,10 +68,11 @@ class Article < ActiveRecord::Base
 
         if lang.code == 'en' # FIXME: This should only be done if we have at least the fallback translation
           a.allow_comments = meta["allow comments"]
-          begin 
-            a.created_at = DateTime.parse(meta["date"]) # Support persisting dates
+          begin
+            a.created_at = DateTime.parse(meta["date"])  # Support persisting dates
           rescue
-          end 
+            a.created_at = nil # Will be added with current date.
+          end if meta.has_key? 'date'
           a.save!
           logger.info "  Created article"
         end
