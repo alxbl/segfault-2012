@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   end
 
   def rss
-    @articles = Article.limit(10)
+    @articles = Article.order('created_at DESC').limit(10)
     render :layout => false, :content_type => 'application/xml'
   end
 end

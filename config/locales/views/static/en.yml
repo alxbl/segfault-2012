@@ -4,5 +4,10 @@ en:
   portfolio: "Portfolio"
   resume: "Resume"
 
+  blurb_html: "I'm Alexandre Beaulieu, a C++ software developer with a passion for software design &amp; architecture. I'm interested in networking, compilers and distributed systems. I work in the IP video surveillance industry and deal with camera integration in a distributed fault tolerant environment."
+  blurb_cont_html: "In my spare time, I enjoy web development, learning Japanese and jogging. I also like to pretend I am a system administrator and read books. Find me on <a href=\"http://www.github.com/alxbl\">GitHub</a> to keep up to date with my latest projects."
+  curproj_header: "I'm currently working on..."
+  curproj_desc_html: "<a href=\"http://www.github.com/alxbl/DebugDiag.Native.git\">DebugDiag.Native</a>, an unofficial Microsoft Debug Diagnostics extension for automating native code post-mortem analysis."
+
   copyright_html: "&copy; 2013 Alexandre Beaulieu &mdash; <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>"
   findme: "Find me on"

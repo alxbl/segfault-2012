@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html<%== page_class yield(:title).downcase %>>
+<html<%== page_class yield(:title).downcase %> ng-app>
  <head>
   <meta charset="utf-8">
   <title><%= page_title yield(:title) %></title>
-  <link href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+  <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css">
   <%= stylesheet_link_tag "application", media: 'all' %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
  </head>
  <body>

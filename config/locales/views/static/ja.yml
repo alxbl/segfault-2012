@@ -3,6 +3,9 @@ ja:
   about: "私について"
   portfolio: "ポートフォリオ"
   resume: "履歴書"
-
+  blurb_html: "Beaulieu Alexandre (ボリュ　アレキサンドル)と申します。ソフトウェアデザインに興味があるC++のソフトウェア開発者です。ネットワーキング、コンパイラ、分散コンピューティングなどが好きです。ただいまIP防犯カメラシステムの会社に就職してカメラのインテグレーションが専門となっています。オーディオ・ビデオ配信などという機能の開発をしています。"
+  blurb_cont_html: "暇があればウェブ開発したり日本語を勉強したりすることが楽しいです。たまにもジョギングに行くのが趣味です。他にはシステム管理にもう興味があって、出来るだけやっています。ソフトウェア的には<a href=\"http://www.github.com/alxbl\">GitHub</a>を是非ご覧になってください。"
+  curproj_header: "最近やっているプロジェクト"
+  curproj_desc_html: "<a href=\"http://www.github.com/alxbl/DebugDiag.Native.git\">DebugDiag.Native</a>, Microsoft　Debug Diagnosticsの不公正な拡張機能で、ネーティブコード（C++など)のコアーダンプ分析フレームワークです。自動的にコアーダンプの分析を行う上で。ダンプの調査を簡単にすることを目的にしているソフトです。"
   copyright_html: "&copy; 2013 Alexandre Beaulieu &mdash; <a href=\"https://creativecommons.org/licenses/by-sa/3.0/deed.ja\">CC BY-SA 3.0</a>"
   findme: "他に連絡方法は"
